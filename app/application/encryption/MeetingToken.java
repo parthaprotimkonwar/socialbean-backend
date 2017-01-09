@@ -2,7 +2,8 @@ package application.encryption;
 
 import application.enums.USER_TYPE;
 
-import java.io.Serializable;
+import java.io.*;
+import java.util.Base64;
 import java.util.Date;
 
 /**
@@ -31,7 +32,16 @@ public class MeetingToken implements Serializable {
      * @return
      */
     public String encode() {
-        return "ENCODED_STRING";
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
+            objectOutputStream.writeObject(this);
+            objectOutputStream.flush();
+            return new String(Base64.getEncoder().encode(byteArrayOutputStream.toByteArray()));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     /**
@@ -41,6 +51,17 @@ public class MeetingToken implements Serializable {
      * @return
      */
     public MeetingToken decode(String encodedToken) {
+        try {
+            byte encodedByteArray[] = Base64.getDecoder().decode(encodedToken.getBytes());
+            ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(encodedByteArray);
+            ObjectInputStream objectInputStream = new ObjectInputStream(byteArrayInputStream);
+
+            return (MeetingToken) (objectInputStream.readObject());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 
