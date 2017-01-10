@@ -14,11 +14,11 @@ public interface TeachersServiceI {
     /**
      * Find a teacher
      *
-     * @param teacherBean
+     * @param id
      * @return
      * @throws BaseException
      */
-    Teacher findTeacher(TeacherBean teacherBean) throws BaseException;
+    Teacher findTeacher(Long id) throws BaseException;
 
     /**
      * Register a teacher

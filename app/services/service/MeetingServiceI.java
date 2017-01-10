@@ -50,11 +50,12 @@ public interface MeetingServiceI {
 
     /**
      * Save the recorded URL for a class
-     *
-     * @param meetingBean
+     * @param meetingId
+     * @param recordedUrl
      * @return
+     * @throws BaseException
      */
-    Meeting saveRecordedUrl(MeetingBean meetingBean) throws BaseException;
+    Meeting saveRecordedUrl(Long meetingId, String recordedUrl) throws BaseException;
 
     /**
      * Convert into meeting bean

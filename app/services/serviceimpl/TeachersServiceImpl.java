@@ -27,9 +27,9 @@ public class TeachersServiceImpl implements TeachersServiceI {
     private TeacherRepository teacherRepository;
 
     @Override
-    public Teacher findTeacher(TeacherBean teacherBean) throws BaseException {
+    public Teacher findTeacher(Long id) throws BaseException {
         try {
-            return teacherRepository.findOne(teacherBean.getId());
+            return teacherRepository.findOne(id);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());

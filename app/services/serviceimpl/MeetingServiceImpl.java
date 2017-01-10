@@ -68,7 +68,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
     @Override
     public Meeting createMeeting(MeetingBean meetingBean) throws BaseException {
         try {
-            Teacher teacher = teachersService.findTeacher(meetingBean.getTeacherBean());
+            Teacher teacher = teachersService.findTeacher(meetingBean.getTeacherBean().getId());
             Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, teacher);
             meeting = meetingRepository.save(meeting);
             MeetingToken presenterToken = new MeetingToken(meeting.getId(), teacher.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
@@ -95,10 +95,10 @@ public class MeetingServiceImpl implements MeetingServiceI {
     }
 
     @Override
-    public Meeting saveRecordedUrl(MeetingBean meetingBean) throws BaseException {
+    public Meeting saveRecordedUrl(Long meetingId, String recordedUrl) throws BaseException {
         try {
-            Meeting meeting = meetingRepository.findOne(meetingBean.getId());
-            meeting.setRecordedUrl(meetingBean.getRecordedUrl());
+            Meeting meeting = meetingRepository.findOne(meetingId);
+            meeting.setRecordedUrl(recordedUrl);
             return meetingRepository.save(meeting);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
