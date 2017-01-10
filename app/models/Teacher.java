@@ -18,7 +18,7 @@ public class Teacher implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "ID")
+    @Column(name = "PRESENTER_ID")
     private Long id;
 
     @Column(name = "TEACHER_NAME", nullable = false, length = 30)

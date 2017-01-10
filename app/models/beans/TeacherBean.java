@@ -16,6 +16,7 @@ public class TeacherBean implements Serializable {
     private byte[] imageBlob;
     private STATUS status;
 
+    public TeacherBean() {}
 
     public TeacherBean(Long id, String teacherName, String emailId, String password, byte[] imageBlob, STATUS status) {
         this.id = id;

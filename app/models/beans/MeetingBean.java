@@ -17,6 +17,8 @@ public class MeetingBean implements Serializable {
     private String recordedUrl;
     private TeacherBean teacherBean;
 
+    public MeetingBean() {}
+
     public MeetingBean(Long id, String title, Date startDateTime, Integer duration, String presenterUrl, String attendeesUrl, String recordedUrl, TeacherBean teacherBean) {
         this.id = id;
         this.title = title;

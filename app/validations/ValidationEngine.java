@@ -52,7 +52,7 @@ public abstract class ValidationEngine implements ValidationLifecycle{
 			} catch(Exception ex) {
 				isValidated = false;
 				if(errorCode == null)
-					errorCode = ErrorConstants.VALIDATION_EXCEPTION.errorCode;
+					errorCode = ErrorConstants.VALIDATION_EXCEPTION.getErrorCode();
 				if(errorMessage == null)
 					errorMessage = new ArrayList<>();
 				String message = keyField.getStringValue() + " : " + ex.getMessage();
@@ -134,7 +134,7 @@ public abstract class ValidationEngine implements ValidationLifecycle{
 			
 			if(!isValid) {
 				if(errorCode == null)
-					errorCode = ErrorConstants.VALIDATION_EXCEPTION.errorCode;
+					errorCode = ErrorConstants.VALIDATION_EXCEPTION.getErrorCode();
 				if(errorMessage == null)
 					errorMessage = new ArrayList<>();
 				errorMessage.add(message);

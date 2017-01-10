@@ -48,7 +48,7 @@ public class Util {
 	 * @return
 	 */
 	public static ErrorResponse generateErrorResponse(ErrorConstants errorConstants) {
-		return new ErrorResponse(errorConstants.errorCode, errorConstants.errorMessage);
+		return new ErrorResponse(errorConstants.getErrorCode(), errorConstants.getErrorMessage());
 	}
 	
 	public static void main(String[] args) {

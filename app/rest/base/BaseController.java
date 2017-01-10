@@ -27,7 +27,7 @@ public class BaseController extends Controller{
 			return Json.fromJson(jsonNode, clazz);
 		} catch (Exception ex) {
 			ErrorConstants error = ErrorConstants.INVALID_REQUEST_DATA;
-			throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+			throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
 		}
 	}
 	
@@ -37,7 +37,7 @@ public class BaseController extends Controller{
 	 */
 	public ErrorResponse unknownErrorResponse() {
 		ErrorConstants error = ErrorConstants.CONTACT_SYSTEM_ADMINISTRATOR;
-		return new ErrorResponse(error.errorCode, error.errorMessage);
+		return new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
 	}
 	
 	/**

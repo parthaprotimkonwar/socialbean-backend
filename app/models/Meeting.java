@@ -39,7 +39,7 @@ public class Meeting implements Serializable {
     private String recordedUrl;
 
     @ManyToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "ID")
+    @JoinColumn(name = "PRESENTER_ID")
     private Teacher teacher;
 
 

@@ -5,6 +5,6 @@ package application.utilities;
  */
 public interface Constants {
 
-    String USER_MANAGEMENT = "USER_MANAGEMENT";
+    String USER_MANAGEMENT = "AUSER_MANAGEMENT";
     String MEETING_SCHEDULES = "MEETING_SCHEDULES";
 }

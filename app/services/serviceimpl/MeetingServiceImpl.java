@@ -39,7 +39,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.findAll();
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -50,7 +50,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.findByStartDateTimeBefore(now);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -61,7 +61,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.findByStartDateTimeAfter(now);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -79,7 +79,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.save(meeting);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -90,7 +90,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.findOne(meetingToken.getMeetingId());
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -102,7 +102,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingRepository.save(meeting);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -116,7 +116,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
             return meetingBeanList;
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 }

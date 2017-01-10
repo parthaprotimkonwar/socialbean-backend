@@ -32,7 +32,7 @@ public class TeachersServiceImpl implements TeachersServiceI {
             return teacherRepository.findOne(id);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -44,7 +44,7 @@ public class TeachersServiceImpl implements TeachersServiceI {
             return teacherRepository.save(teacher);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -54,7 +54,7 @@ public class TeachersServiceImpl implements TeachersServiceI {
             return teacherRepository.findByEmailIdAndPassword(teacherBean.getEmailId(), teacherBean.getPassword());
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -64,7 +64,7 @@ public class TeachersServiceImpl implements TeachersServiceI {
             return teacherRepository.findByEmailId(teacherBean.getEmailId());
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 
@@ -78,7 +78,7 @@ public class TeachersServiceImpl implements TeachersServiceI {
             return teacherBeanList;
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
-            throw new BaseException(error.errorCode, error.errorMessage, ex.getCause());
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
         }
     }
 }
