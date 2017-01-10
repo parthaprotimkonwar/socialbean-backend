@@ -59,8 +59,8 @@ public class Application extends BaseController {
         UsersRequestDto request = new UsersRequestDto();
         request.userType = "USER";
         //try {
-        	/*Teacher user = servicesFactory.usersService.createUser("GUEST");
-            Teacher onotherUser = servicesFactory.usersService.findUserById(user.userId);*/
+        	/*Presenter user = servicesFactory.usersService.createUser("GUEST");
+            Presenter onotherUser = servicesFactory.usersService.findUserById(user.userId);*/
             
         //} catch(BaseException ex) {
         	
@@ -74,10 +74,10 @@ public class Application extends BaseController {
     	
     	List<UsersResponseDto> response = null;
     	//try {
-	    	/*List<Teacher> users = servicesFactory.usersService.users();
+	    	/*List<Presenter> users = servicesFactory.usersService.users();
 	    	
 	    	response = new ArrayList<>();
-	    	for(Teacher user : users) {
+	    	for(Presenter user : users) {
 	    		UsersResponseDto aUserResponse = new UsersResponseDto(String.valueOf(user.userId), user.userType);
 	    		response.add(aUserResponse);
 	    	}*/

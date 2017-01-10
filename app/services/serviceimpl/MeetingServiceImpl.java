@@ -5,12 +5,12 @@ import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import models.Meeting;
-import models.Teacher;
+import models.Presenter;
 import models.beans.MeetingBean;
 import org.springframework.transaction.annotation.Transactional;
 import repository.MeetingRepository;
 import services.service.MeetingServiceI;
-import services.service.TeachersServiceI;
+import services.service.PresenterServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -31,7 +31,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
     private MeetingRepository meetingRepository;
 
     @Inject
-    private TeachersServiceI teachersService;
+    private PresenterServiceI presenterService;
 
     @Override
     public List<Meeting> allMeeting() throws BaseException {
@@ -68,11 +68,11 @@ public class MeetingServiceImpl implements MeetingServiceI {
     @Override
     public Meeting createMeeting(MeetingBean meetingBean) throws BaseException {
         try {
-            Teacher teacher = teachersService.findTeacher(meetingBean.getTeacherBean().getId());
-            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, teacher);
+            Presenter presenter = presenterService.findPresenter(meetingBean.getPresenterBean().getId());
+            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, presenter);
             meeting = meetingRepository.save(meeting);
-            MeetingToken presenterToken = new MeetingToken(meeting.getId(), teacher.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
-            MeetingToken attendeeToken = new MeetingToken(meeting.getId(), teacher.getId(), meetingBean.getStartDateTime(), USER_TYPE.ATTENDEE);
+            MeetingToken presenterToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
+            MeetingToken attendeeToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.ATTENDEE);
 
             meeting.setPresenterToken(presenterToken.encode());
             meeting.setAttendeesToken(attendeeToken.encode());

@@ -12,13 +12,13 @@ import java.util.Date;
 public class MeetingToken implements Serializable {
 
     private Long meetingId;     //the meeting id
-    private Long teacherId;     //the teachers id
+    private Long presenterId;     //the presenter id
     private Date startDateTime;   //the start date time
     private USER_TYPE userType;   //the user type
 
-    public MeetingToken(Long meetingId, Long teacherId, Date startDateTime, USER_TYPE userType) {
+    public MeetingToken(Long meetingId, Long presenterId, Date startDateTime, USER_TYPE userType) {
         this.meetingId = meetingId;
-        this.teacherId = teacherId;
+        this.presenterId = presenterId;
         this.startDateTime = startDateTime;
         this.userType = userType;
     }
@@ -70,8 +70,8 @@ public class MeetingToken implements Serializable {
         return meetingId;
     }
 
-    public Long getTeacherId() {
-        return teacherId;
+    public Long getPresenterId() {
+        return presenterId;
     }
 
     public Date getStartDateTime() {

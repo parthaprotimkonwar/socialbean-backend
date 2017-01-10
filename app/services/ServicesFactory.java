@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import services.service.MeetingServiceI;
 import services.service.PersonServiceI;
-import services.service.TeachersServiceI;
+import services.service.PresenterServiceI;
 
 @Named
 @Singleton
@@ -16,7 +16,7 @@ public class ServicesFactory {
 	public PersonServiceI personService;
 
 	@Inject
-	public TeachersServiceI teachersService;
+	public PresenterServiceI presenterService;
 
 	@Inject
 	public MeetingServiceI meetingService;

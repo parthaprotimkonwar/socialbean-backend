@@ -1,6 +1,6 @@
 package repository;
 
-import models.Teacher;
+import models.Presenter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
  * Created by pkonwar on 1/9/2017.
  */
 @Repository
-public interface TeacherRepository extends JpaRepository<Teacher, Long>{
+public interface PresenterRepository extends JpaRepository<Presenter, Long>{
 
     /**
      * Find by email id and password
@@ -16,12 +16,12 @@ public interface TeacherRepository extends JpaRepository<Teacher, Long>{
      * @param password
      * @return
      */
-    Teacher findByEmailIdAndPassword(String emailId, String password);
+    Presenter findByEmailIdAndPassword(String emailId, String password);
 
     /**
      * Find by email id
      * @param emailId
      * @return
      */
-    Teacher findByEmailId(String emailId);
+    Presenter findByEmailId(String emailId);
 }

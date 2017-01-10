@@ -7,20 +7,20 @@ import java.io.Serializable;
 /**
  * Created by pkonwar on 1/9/2017.
  */
-public class TeacherBean implements Serializable {
+public class PresenterBean implements Serializable {
 
     private Long id;
-    private String teacherName;
+    private String presenterName;
     private String emailId;
     private String password;
     private byte[] imageBlob;
     private STATUS status;
 
-    public TeacherBean() {}
+    public PresenterBean() {}
 
-    public TeacherBean(Long id, String teacherName, String emailId, String password, byte[] imageBlob, STATUS status) {
+    public PresenterBean(Long id, String presenterName, String emailId, String password, byte[] imageBlob, STATUS status) {
         this.id = id;
-        this.teacherName = teacherName;
+        this.presenterName = presenterName;
         this.emailId = emailId;
         this.password = password;
         this.imageBlob = imageBlob;
@@ -35,12 +35,12 @@ public class TeacherBean implements Serializable {
         this.id = id;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getPresenterName() {
+        return presenterName;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setPresenterName(String presenterName) {
+        this.presenterName = presenterName;
     }
 
     public String getEmailId() {

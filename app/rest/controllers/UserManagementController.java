@@ -3,8 +3,8 @@ package rest.controllers;
 import application.enums.STATUS;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
-import models.Teacher;
-import models.beans.TeacherBean;
+import models.Presenter;
+import models.beans.PresenterBean;
 import play.mvc.Result;
 import rest.base.BaseController;
 import rest.bean.response.ResponseBean;
@@ -35,9 +35,9 @@ public class UserManagementController extends BaseController {
     public Result register() {
         ResponseBean responseBean = null;
         try {
-            TeacherBean teacherBean = convertRequestBodyToObject(request().body(), TeacherBean.class);
-            teacherBean = servicesFactory.teachersService.register(teacherBean).toTeacherBean();
-            responseBean = new ResponseBean(STATUS.SUCCESS, null, teacherBean, null);
+            PresenterBean presenterBean = convertRequestBodyToObject(request().body(), PresenterBean.class);
+            presenterBean = servicesFactory.presenterService.register(presenterBean).toPresenterBean();
+            responseBean = new ResponseBean(STATUS.SUCCESS, null, presenterBean, null);
         } catch (BaseException ex) {
             System.out.println(ex.getCause());
             ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
@@ -57,14 +57,14 @@ public class UserManagementController extends BaseController {
     public Result login() {
         ResponseBean responseBean = null;
         try {
-            TeacherBean teacherBean = convertRequestBodyToObject(request().body(), TeacherBean.class);
-            Teacher teacher = servicesFactory.teachersService.login(teacherBean);
-            if (teacher == null) {
+            PresenterBean presenterBean = convertRequestBodyToObject(request().body(), PresenterBean.class);
+            Presenter presenter = servicesFactory.presenterService.login(presenterBean);
+            if (presenter == null) {
                 ErrorConstants error = ErrorConstants.INVALID_LOGIN;
                 ErrorResponse errorResponse = new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
                 responseBean = new ResponseBean(STATUS.FAILURE, null, null, errorResponse);
             } else {
-                responseBean = new ResponseBean(STATUS.SUCCESS, null, teacher.toTeacherBean(), null);
+                responseBean = new ResponseBean(STATUS.SUCCESS, null, presenter.toPresenterBean(), null);
             }
         } catch (BaseException ex) {
             System.out.println(ex.getCause());
@@ -85,9 +85,9 @@ public class UserManagementController extends BaseController {
     public Result forgotpassword() {
         ResponseBean responseBean = null;
         try {
-            TeacherBean teacherBean = convertRequestBodyToObject(request().body(), TeacherBean.class);
-            Teacher teacher = servicesFactory.teachersService.forgotPassword(teacherBean);
-            if (teacher == null) {
+            PresenterBean presenterBean = convertRequestBodyToObject(request().body(), PresenterBean.class);
+            Presenter presenter = servicesFactory.presenterService.forgotPassword(presenterBean);
+            if (presenter == null) {
                 ErrorConstants error = ErrorConstants.INVALID_LOGIN;
                 ErrorResponse errorResponse = new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
                 responseBean = new ResponseBean(STATUS.FAILURE, null, null, errorResponse);

@@ -2,7 +2,7 @@ package models;
 
 import application.enums.STATUS;
 import application.utilities.Constants;
-import models.beans.TeacherBean;
+import models.beans.PresenterBean;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
@@ -14,15 +14,15 @@ import java.util.List;
  */
 @Entity
 @Table(name = "PRESENTER", schema = Constants.USER_MANAGEMENT)
-public class Teacher implements Serializable {
+public class Presenter implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "PRESENTER_ID")
     private Long id;
 
-    @Column(name = "TEACHER_NAME", nullable = false, length = 30)
-    private String teacherName;
+    @Column(name = "PRESENTER_NAME", nullable = false, length = 30)
+    private String presenterName;
 
     @Column(name = "EMAIL_ID", nullable = false, length = 40, unique = true)
     private String emailId;
@@ -38,39 +38,39 @@ public class Teacher implements Serializable {
     @Enumerated(value = EnumType.ORDINAL)
     private STATUS status;
 
-    @OneToMany(mappedBy = "teacher")
+    @OneToMany(mappedBy = "presenter")
     private List<Meeting> meetingList;
 
-    public Teacher(String teacherName, String emailId, String password, byte[] imageBlob, STATUS status) {
-        this.teacherName = teacherName;
+    public Presenter(String presenterName, String emailId, String password, byte[] imageBlob, STATUS status) {
+        this.presenterName = presenterName;
         this.emailId = emailId;
         this.password = password;
         this.imageBlob = imageBlob;
         this.status = status;
     }
 
-    public Teacher() {
+    public Presenter() {
     }
 
     /**
-     * Converts to teacher bean
+     * Converts to presenter bean
      *
      * @return
      */
-    public TeacherBean toTeacherBean() {
-        return new TeacherBean(this.getId(), this.getTeacherName(), this.getEmailId(), this.getPassword(), this.getImageBlob(), this.getStatus());
+    public PresenterBean toPresenterBean() {
+        return new PresenterBean(this.getId(), this.getPresenterName(), this.getEmailId(), this.getPassword(), this.getImageBlob(), this.getStatus());
     }
 
     public Long getId() {
         return id;
     }
 
-    public String getTeacherName() {
-        return teacherName;
+    public String getPresenterName() {
+        return presenterName;
     }
 
-    public void setTeacherName(String teacherName) {
-        this.teacherName = teacherName;
+    public void setPresenterName(String presenterName) {
+        this.presenterName = presenterName;
     }
 
     public String getEmailId() {

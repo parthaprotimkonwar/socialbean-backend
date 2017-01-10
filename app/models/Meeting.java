@@ -40,17 +40,17 @@ public class Meeting implements Serializable {
 
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "PRESENTER_ID")
-    private Teacher teacher;
+    private Presenter presenter;
 
 
-    public Meeting(String title, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, Teacher teacher) {
+    public Meeting(String title, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, Presenter presenter) {
         this.title = title;
         this.startDateTime = startDateTime;
         this.duration = duration;
         this.presenterToken = presenterToken;
         this.attendeesToken = attendeesToken;
         this.recordedUrl = recordedUrl;
-        this.teacher = teacher;
+        this.presenter = presenter;
     }
 
     public Meeting() {
@@ -62,7 +62,7 @@ public class Meeting implements Serializable {
      * @return
      */
     public MeetingBean toMeetingBean() {
-        return new MeetingBean(this.getId(), this.getTitle(), this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getTeacher().toTeacherBean());
+        return new MeetingBean(this.getId(), this.getTitle(), this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getPresenter().toPresenterBean());
     }
 
     public Long getId() {
@@ -117,11 +117,11 @@ public class Meeting implements Serializable {
         this.recordedUrl = recordedUrl;
     }
 
-    public Teacher getTeacher() {
-        return teacher;
+    public Presenter getPresenter() {
+        return presenter;
     }
 
-    public void setTeacher(Teacher teacher) {
-        this.teacher = teacher;
+    public void setPresenter(Presenter presenter) {
+        this.presenter = presenter;
     }
 }

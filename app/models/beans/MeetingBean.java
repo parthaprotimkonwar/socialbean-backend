@@ -15,11 +15,11 @@ public class MeetingBean implements Serializable {
     private String presenterUrl;
     private String attendeesUrl;
     private String recordedUrl;
-    private TeacherBean teacherBean;
+    private PresenterBean presenterBean;
 
     public MeetingBean() {}
 
-    public MeetingBean(Long id, String title, Date startDateTime, Integer duration, String presenterUrl, String attendeesUrl, String recordedUrl, TeacherBean teacherBean) {
+    public MeetingBean(Long id, String title, Date startDateTime, Integer duration, String presenterUrl, String attendeesUrl, String recordedUrl, PresenterBean presenterBean) {
         this.id = id;
         this.title = title;
         this.startDateTime = startDateTime;
@@ -27,7 +27,7 @@ public class MeetingBean implements Serializable {
         this.presenterUrl = presenterUrl;
         this.attendeesUrl = attendeesUrl;
         this.recordedUrl = recordedUrl;
-        this.teacherBean = teacherBean;
+        this.presenterBean = presenterBean;
     }
 
 
@@ -87,11 +87,11 @@ public class MeetingBean implements Serializable {
         this.recordedUrl = recordedUrl;
     }
 
-    public TeacherBean getTeacherBean() {
-        return teacherBean;
+    public PresenterBean getPresenterBean() {
+        return presenterBean;
     }
 
-    public void setTeacherBean(TeacherBean teacherBean) {
-        this.teacherBean = teacherBean;
+    public void setPresenterBean(PresenterBean presenterBean) {
+        this.presenterBean = presenterBean;
     }
 }

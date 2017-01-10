@@ -3,11 +3,11 @@ package services.serviceimpl;
 import application.enums.STATUS;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
-import models.Teacher;
-import models.beans.TeacherBean;
+import models.Presenter;
+import models.beans.PresenterBean;
 import org.springframework.transaction.annotation.Transactional;
-import repository.TeacherRepository;
-import services.service.TeachersServiceI;
+import repository.PresenterRepository;
+import services.service.PresenterServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -21,15 +21,15 @@ import java.util.List;
 @Named
 @Singleton
 @Transactional
-public class TeachersServiceImpl implements TeachersServiceI {
+public class PresenterServiceImpl implements PresenterServiceI {
 
     @Inject
-    private TeacherRepository teacherRepository;
+    private PresenterRepository presenterRepository;
 
     @Override
-    public Teacher findTeacher(Long id) throws BaseException {
+    public Presenter findPresenter(Long id) throws BaseException {
         try {
-            return teacherRepository.findOne(id);
+            return presenterRepository.findOne(id);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -37,11 +37,11 @@ public class TeachersServiceImpl implements TeachersServiceI {
     }
 
     @Override
-    public Teacher register(TeacherBean teacherBean) throws BaseException {
+    public Presenter register(PresenterBean presenterBean) throws BaseException {
 
         try {
-            Teacher teacher = new Teacher(teacherBean.getTeacherName(), teacherBean.getEmailId(), teacherBean.getPassword(), teacherBean.getImageBlob(), STATUS.ACTIVE);
-            return teacherRepository.save(teacher);
+            Presenter presenter = new Presenter(presenterBean.getPresenterName(), presenterBean.getEmailId(), presenterBean.getPassword(), presenterBean.getImageBlob(), STATUS.ACTIVE);
+            return presenterRepository.save(presenter);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -49,9 +49,9 @@ public class TeachersServiceImpl implements TeachersServiceI {
     }
 
     @Override
-    public Teacher login(TeacherBean teacherBean) throws BaseException {
+    public Presenter login(PresenterBean presenterBean) throws BaseException {
         try {
-            return teacherRepository.findByEmailIdAndPassword(teacherBean.getEmailId(), teacherBean.getPassword());
+            return presenterRepository.findByEmailIdAndPassword(presenterBean.getEmailId(), presenterBean.getPassword());
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -59,9 +59,9 @@ public class TeachersServiceImpl implements TeachersServiceI {
     }
 
     @Override
-    public Teacher forgotPassword(TeacherBean teacherBean) throws BaseException {
+    public Presenter forgotPassword(PresenterBean presenterBean) throws BaseException {
         try {
-            return teacherRepository.findByEmailId(teacherBean.getEmailId());
+            return presenterRepository.findByEmailId(presenterBean.getEmailId());
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -69,13 +69,13 @@ public class TeachersServiceImpl implements TeachersServiceI {
     }
 
     @Override
-    public List<TeacherBean> convertToTeacherBean(List<Teacher> teacherList) throws BaseException {
+    public List<PresenterBean> convertToPresenterBean(List<Presenter> presenterList) throws BaseException {
         try {
-            List<TeacherBean> teacherBeanList = new ArrayList<>();
-            for (Teacher teacher : teacherList) {
-                teacherBeanList.add(teacher.toTeacherBean());
+            List<PresenterBean> presenterBeanList = new ArrayList<>();
+            for (Presenter presenter : presenterList) {
+                presenterBeanList.add(presenter.toPresenterBean());
             }
-            return teacherBeanList;
+            return presenterBeanList;
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
