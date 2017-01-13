@@ -16,7 +16,12 @@ public class PresenterBean implements Serializable {
     private byte[] imageBlob;
     private STATUS status;
 
-    public PresenterBean() {}
+    public PresenterBean() {
+    }
+
+    public PresenterBean(Long id) {
+        this.id = id;
+    }
 
     public PresenterBean(Long id, String presenterName, String emailId, String password, byte[] imageBlob, STATUS status) {
         this.id = id;

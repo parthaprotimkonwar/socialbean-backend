@@ -20,7 +20,7 @@ import javax.inject.Singleton;
  */
 @Named
 @Singleton
-public class UserManagementController extends BaseController {
+public class UserController extends BaseController {
 
 
     @Inject

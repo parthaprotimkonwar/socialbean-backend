@@ -1,10 +1,12 @@
 package application.encryption;
 
 import application.enums.USER_TYPE;
+import application.utilities.Constants;
 
 import java.io.*;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by pkonwar on 1/10/2017.
@@ -27,12 +29,28 @@ public class MeetingToken implements Serializable {
     }
 
     /**
+     * Generate a random meeting token
+     *
+     * @return
+     */
+    public String createRandomMeetingToken() {
+        final String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        final int N = alphabet.length();
+        Random r = new Random();
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < Constants.RANDOM_MEETING_TOKEN_LENGTH; i++) {
+            sb.append(alphabet.charAt(r.nextInt(N)));
+        }
+        return sb.toString();
+    }
+
+    /**
      * Encode the meeting id
      *
      * @return
      */
     public String encode() {
-        try {
+        /*try {
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new ByteArrayOutputStream());
             objectOutputStream.writeObject(this);
@@ -40,8 +58,8 @@ public class MeetingToken implements Serializable {
             return new String(Base64.getEncoder().encode(byteArrayOutputStream.toByteArray()));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-        return null;
+        }*/
+        return createRandomMeetingToken();
     }
 
     /**
@@ -65,6 +83,10 @@ public class MeetingToken implements Serializable {
         return null;
     }
 
+    public static void main(String[] args) {
+        MeetingToken mt = new MeetingToken();
+        System.out.println(mt.createRandomMeetingToken());
+    }
 
     public Long getMeetingId() {
         return meetingId;

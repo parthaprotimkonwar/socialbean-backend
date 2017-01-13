@@ -70,6 +70,7 @@ public class PresenterServiceImpl implements PresenterServiceI {
 
     @Override
     public List<PresenterBean> convertToPresenterBean(List<Presenter> presenterList) throws BaseException {
+        if (presenterList == null) return null;
         try {
             List<PresenterBean> presenterBeanList = new ArrayList<>();
             for (Presenter presenter : presenterList) {

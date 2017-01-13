@@ -16,6 +16,7 @@ public enum ErrorConstants {
     INVALID_TOKEN("407", "Token not valid"),
     MANDATORY_FIELDS_NOT_PRESENT("408", "Mandatory Fields Not Present"),
     VALIDATION_EXCEPTION("409", "Validation Exception"),
+    NO_SUCH_RECORD("410", "No such record"),
 
     //Error Code Series : 5XX : Server Side Error (Backend error)
     DATA_PERSISTANT_EXCEPTION("501", "Unable to Save data"),

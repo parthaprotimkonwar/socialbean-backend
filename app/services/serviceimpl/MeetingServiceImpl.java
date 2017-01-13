@@ -30,13 +30,10 @@ public class MeetingServiceImpl implements MeetingServiceI {
     @Inject
     private MeetingRepository meetingRepository;
 
-    @Inject
-    private PresenterServiceI presenterService;
-
     @Override
-    public List<Meeting> allMeeting() throws BaseException {
+    public List<Meeting> allMeeting(Presenter presenter) throws BaseException {
         try {
-            return meetingRepository.findAll();
+            return meetingRepository.findAllByPresenter(presenter);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -44,10 +41,10 @@ public class MeetingServiceImpl implements MeetingServiceI {
     }
 
     @Override
-    public List<Meeting> pastMeetings() throws BaseException {
+    public List<Meeting> pastMeetings(Presenter presenter) throws BaseException {
         try {
             Date now = new Date();
-            return meetingRepository.findByStartDateTimeBefore(now);
+            return meetingRepository.findByStartDateTimeBeforeAndPresenter(now, presenter);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -55,10 +52,10 @@ public class MeetingServiceImpl implements MeetingServiceI {
     }
 
     @Override
-    public List<Meeting> upcommingMeetings() throws BaseException {
+    public List<Meeting> upcommingMeetings(Presenter presenter) throws BaseException {
         try {
             Date now = new Date();
-            return meetingRepository.findByStartDateTimeAfter(now);
+            return meetingRepository.findByStartDateTimeAfterAndPresenter(now, presenter);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -66,9 +63,8 @@ public class MeetingServiceImpl implements MeetingServiceI {
     }
 
     @Override
-    public Meeting createMeeting(MeetingBean meetingBean) throws BaseException {
+    public Meeting createMeeting(MeetingBean meetingBean, Presenter presenter) throws BaseException {
         try {
-            Presenter presenter = presenterService.findPresenter(meetingBean.getPresenterBean().getId());
             Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, presenter);
             meeting = meetingRepository.save(meeting);
             MeetingToken presenterToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
@@ -84,10 +80,19 @@ public class MeetingServiceImpl implements MeetingServiceI {
     }
 
     @Override
-    public Meeting findMeeting(String token) throws BaseException {
+    public Meeting findMeetingOfAttendee(String crypticId) throws BaseException {
         try {
-            MeetingToken meetingToken = new MeetingToken().decode(token);
-            return meetingRepository.findOne(meetingToken.getMeetingId());
+            return meetingRepository.findByAttendeesToken(crypticId);
+        } catch (Exception ex) {
+            ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+        }
+    }
+
+    @Override
+    public Meeting findMeetingOfPersentor(String crypticId) throws BaseException {
+        try {
+            return meetingRepository.findByPresenterToken(crypticId);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
             throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
@@ -108,9 +113,11 @@ public class MeetingServiceImpl implements MeetingServiceI {
 
     @Override
     public List<MeetingBean> convertIntoMeetingBean(List<Meeting> meetingList) throws BaseException {
+        if (meetingList == null) return null;
+
         try {
             List<MeetingBean> meetingBeanList = new ArrayList<>();
-            for(Meeting meeting : meetingList) {
+            for (Meeting meeting : meetingList) {
                 meetingBeanList.add(meeting.toMeetingBean());
             }
             return meetingBeanList;
