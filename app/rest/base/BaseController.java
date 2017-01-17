@@ -1,16 +1,14 @@
 package rest.base;
 
-import org.apache.http.HttpStatus;
-
-import com.fasterxml.jackson.databind.JsonNode;
-
-import rest.responsedto.ErrorResponse;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
+import com.fasterxml.jackson.databind.JsonNode;
+import rest.responsedto.ErrorResponse;
+import org.apache.http.HttpStatus;
 import play.libs.Json;
 import play.mvc.Controller;
-import play.mvc.Result;
 import play.mvc.Http.RequestBody;
+import play.mvc.Result;
 
 public class BaseController extends Controller{
 
@@ -30,7 +28,7 @@ public class BaseController extends Controller{
 			throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
 		}
 	}
-	
+
 	/**
 	 * Generate error which is unknown to system
 	 * @return
@@ -39,7 +37,7 @@ public class BaseController extends Controller{
 		ErrorConstants error = ErrorConstants.CONTACT_SYSTEM_ADMINISTRATOR;
 		return new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
 	}
-	
+
 	/**
 	 * Success Object in JSON.
 	 * @param object
@@ -47,9 +45,18 @@ public class BaseController extends Controller{
 	 */
 	public Result convertObjectToJsonResponse(Object object){
 		JsonNode jsonNode = Json.toJson(object);
+		addCORSHeader();
 		return ok(jsonNode);
 	}
-	
+
+	/**
+	 * Add CORS Header
+	 */
+	public void addCORSHeader() {
+		String origin = request().getHeader("Origin");
+		if(origin != null)
+			response().setHeader("Access-Control-Allow-Origin", origin);
+	}
 	/**
 	 * Validation error to JSON response.
 	 * @param object
@@ -59,7 +66,7 @@ public class BaseController extends Controller{
 		JsonNode jsonNode = Json.toJson(object);
 		return status(HttpStatus.SC_BAD_REQUEST, jsonNode);
 	}
-	
+
 	/**
 	 * Finds ErrorType based on errorResponse and send specific response.
 	 * Rules :
@@ -73,26 +80,27 @@ public class BaseController extends Controller{
 
 		String errorCode = errorResponse.getErrorCode();
 		char errorType = (errorCode == null || errorCode.trim().length() == 0) ? '4' : errorCode.charAt(0);
-		
+
 		//the httpErrorCode
 		int httpErrorCode;
-		
+
 		switch (errorType) {
 			case '4':
 				httpErrorCode = HttpStatus.SC_BAD_REQUEST;
 				break;
-	
+
 			case '5':
 				httpErrorCode = HttpStatus.SC_INTERNAL_SERVER_ERROR;
 				break;
-				
+
 			default:
 				httpErrorCode = HttpStatus.SC_BAD_REQUEST;
 				break;
 		}
+		addCORSHeader();
 		return errorObjectToJsonResponse(httpErrorCode, errorResponse);
 	}
-	
+
 	/**
 	 * Error Object to JSON response
 	 * @param httpErrorCode
@@ -101,6 +109,7 @@ public class BaseController extends Controller{
 	 */
 	public Result errorObjectToJsonResponse(int httpErrorCode, ErrorResponse errorResponse){
 		JsonNode jsonNode = Json.toJson(errorResponse);
+		addCORSHeader();
 		return status(httpErrorCode, jsonNode);
 	}
 }

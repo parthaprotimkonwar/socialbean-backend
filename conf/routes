@@ -4,23 +4,29 @@
 
 # Home page - we use the @controllers syntax here so that the router knows we are referring to a class. In turn it
 # will call on the GlobalSettings.getController method to resolve the actual controller instance.
-GET     /                                                     @rest.controllers.Application.index
+GET            /                                              @rest.controllers.Application.index
 
-GET		/persons                                              @rest.controllers.Application.persons
+GET            /persons                                       @rest.controllers.Application.persons
 
-POST	/user/register                                        @rest.controllers.UserController.register
+POST           /user/register                                 @rest.controllers.UserController.register
 
-POST	/user/login                                           @rest.controllers.UserController.login
+POST           /user/login                                    @rest.controllers.UserController.login
 
-POST	/user/forgotpassword                                  @rest.controllers.UserController.forgotpassword
+POST           /user/forgotpassword                           @rest.controllers.UserController.forgotpassword
 
-GET     /meetings/all/:presenterId/:meetingType               @rest.controllers.MeetingController.meetings(presenterId :Long, meetingType :String)
+GET            /meetings/all/:presenterId/:meetingType        @rest.controllers.MeetingController.meetings(presenterId :Long, meetingType :String)
 
-POST    /meetings/create                                      @rest.controllers.MeetingController.createNewMeeting
+POST           /meetings/create                               @rest.controllers.MeetingController.createNewMeeting
 
-GET     /meetings/find/:userType/:tokenId                     @rest.controllers.MeetingController.findMeeting(userType :String, tokenId :String)
+GET            /meetings/find/:userType/:tokenId              @rest.controllers.MeetingController.findMeeting(userType :String, tokenId :String)
 
-PUT     /meetings/saveurl                                     @rest.controllers.MeetingController.storeRecordedUrl
+PUT            /meetings/saveurl                              @rest.controllers.MeetingController.storeRecordedUrl
+
+OPTIONS        /user/register                                 @rest.controllers.CORSAllowController.enablecors
+
+OPTIONS        /user/login                                    @rest.controllers.CORSAllowController.enablecors
+
+OPTIONS        /user/forgotpassword                           @rest.controllers.CORSAllowController.enablecors
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file        controllers.Assets.at(path="/public", file)
+GET            /assets/*file                                  controllers.Assets.at(path="/public", file)

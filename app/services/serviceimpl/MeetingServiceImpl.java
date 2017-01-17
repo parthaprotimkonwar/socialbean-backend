@@ -10,7 +10,6 @@ import models.beans.MeetingBean;
 import org.springframework.transaction.annotation.Transactional;
 import repository.MeetingRepository;
 import services.service.MeetingServiceI;
-import services.service.PresenterServiceI;
 
 import javax.inject.Inject;
 import javax.inject.Named;
