@@ -15,10 +15,15 @@ import javax.inject.Singleton;
 public class CORSAllowController extends BaseController {
 
     public Result enablecors() {
+        return cors();
+    }
+
+    private Result cors() {
         response().setHeader("Access-Control-Allow-Origin", request().getHeader("Origin"));
         response().setHeader("Access-Control-Allow-Methods", "HEAD,GET,PUT,DELETE,OPTIONS");
         response().setHeader("Access-Control-Max-Age", "10000");
         response().setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Referrer, User-Agent");
         return ok();
     }
+
 }
