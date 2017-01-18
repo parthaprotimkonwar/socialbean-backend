@@ -27,9 +27,9 @@ public class ErrorResponse implements Serializable {
         this.errorMessage = errorMessage;
     }
 
-    public String errorCode;
+    private String errorCode;
 
-    public String errorMessage;
+    private String errorMessage;
 
     public String getErrorCode() {
         return errorCode;
