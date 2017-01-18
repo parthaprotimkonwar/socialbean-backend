@@ -6,71 +6,44 @@ import java.util.List;
 
 /**
  * DTO for sending ErrorMessages
+ *
  * @author pkonwar
  */
-public class ErrorResponse implements Serializable{
+public class ErrorResponse implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	public ErrorResponse() {
-	}
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * Generates ErrorResponse accepting errorCode and List of errorMessages
-	 * @param errorCode
-	 * @param errorMessages
-	 */
-	public ErrorResponse(String errorCode, List<String> errorMessages) {
-		this.errorCode = errorCode;
-		this.errorMessages = errorMessages;
-	}
-	
-	/**
-	 * Generates ErrorResponse accepting a errorCode and a errorMessage
-	 * @param errorCode
-	 * @param errorMessage
-	 */
-	public ErrorResponse(String errorCode, String errorMessage) {
-		this.errorCode = errorCode;
-		this.errorMessages = new ArrayList<>();
-		this.errorMessages.add(errorMessage);
-	}
-	
-	/**
-	 * Generates ErrorResponse accepting errorCode and either an errorMessage
-	 * 		or a list of errorMessages. 
-	 * @param errorCode
-	 * @param errorMessage
-	 * @param errorMessages
-	 */
-	public ErrorResponse(String errorCode, String errorMessage, List<String> errorMessages) {
-		this.errorCode = errorCode;
-		if(errorMessage != null && errorMessage.trim().length() > 0) {
-			this.errorMessages = new ArrayList<>();
-			this.errorMessages.add(errorMessage);
-		} else {
-			this.errorMessages = errorMessages;
-		}
-	}
-	
-	public String errorCode;
-	
-	public List<String> errorMessages;
+    public ErrorResponse() {
+    }
 
-	public String getErrorCode() {
-		return errorCode;
-	}
+    /**
+     * Generates ErrorResponse accepting errorCode and List of errorMessages
+     *
+     * @param errorCode
+     * @param errorMessage
+     */
+    public ErrorResponse(String errorCode, String errorMessage) {
+        this.errorCode = errorCode;
+        this.errorMessage = errorMessage;
+    }
 
-	public void setErrorCode(String errorCode) {
-		this.errorCode = errorCode;
-	}
+    public String errorCode;
 
-	public List<String> getErrorMessages() {
-		return errorMessages;
-	}
+    public String errorMessage;
 
-	public void setErrorMessages(List<String> errorMessages) {
-		this.errorMessages = errorMessages;
-	}
-	
+    public String getErrorCode() {
+        return errorCode;
+    }
+
+    public void setErrorCode(String errorCode) {
+        this.errorCode = errorCode;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
+    }
 }

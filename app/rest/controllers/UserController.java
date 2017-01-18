@@ -36,7 +36,8 @@ public class UserController extends BaseController {
         ResponseBean responseBean = null;
         try {
             PresenterBean presenterBean = convertRequestBodyToObject(request().body(), PresenterBean.class);
-            presenterBean = servicesFactory.presenterService.register(presenterBean).toPresenterBean();
+            Presenter presenter = servicesFactory.presenterService.register(presenterBean);
+            presenterBean = presenter.toPresenterBean();
             responseBean = new ResponseBean(STATUS.SUCCESS, null, presenterBean, null);
         } catch (BaseException ex) {
             System.out.println(ex.getCause());

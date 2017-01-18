@@ -21,6 +21,14 @@ public interface PresenterServiceI {
     Presenter findPresenter(Long id) throws BaseException;
 
     /**
+     *
+     * @param email
+     * @return
+     * @throws BaseException
+     */
+    Presenter findPresenterByEmail(String email) throws BaseException;
+
+    /**
      * Register a presenter
      *
      * @param presenterBean

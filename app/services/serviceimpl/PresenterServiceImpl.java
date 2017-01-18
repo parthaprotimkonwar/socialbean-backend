@@ -37,9 +37,24 @@ public class PresenterServiceImpl implements PresenterServiceI {
     }
 
     @Override
+    public Presenter findPresenterByEmail(String email) throws BaseException {
+        try {
+            return presenterRepository.findByEmailId(email);
+        } catch (Exception ex) {
+            ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+        }
+    }
+
+    @Override
     public Presenter register(PresenterBean presenterBean) throws BaseException {
 
         try {
+            Presenter thePresenter = presenterRepository.findByEmailId(presenterBean.getEmailId());
+            if(thePresenter != null){
+                ErrorConstants error = ErrorConstants.DUPLICATE_EMAIL_ID;
+                throw new BaseException(error.getErrorCode(), error.getErrorMessage(), null);
+            }
             Presenter presenter = new Presenter(presenterBean.getPresenterName(), presenterBean.getEmailId(), presenterBean.getPassword(), presenterBean.getImageBlob(), STATUS.ACTIVE);
             return presenterRepository.save(presenter);
         } catch (Exception ex) {
