@@ -25,7 +25,7 @@ public class MeetingBean implements Serializable {
         this.id = id;
         this.title = title;
         this.startDateTime = startDateTime;
-        this.dateTimeInString = startDateTime.toString();
+        this.dateTimeInString = startDateTime == null ? "" : startDateTime.toString();
         this.duration = duration;
         this.presenterToken = presenterToken;
         this.attendeesUrl = attendeesUrl;
