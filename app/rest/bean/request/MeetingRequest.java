@@ -15,6 +15,7 @@ public class MeetingRequest implements Serializable {
     private Long presenterId;
     private Long meetingId;
     private String title;
+    private String description;
     private String startDateTime;
     private Integer duration;
     private String presenterToken;
@@ -25,10 +26,11 @@ public class MeetingRequest implements Serializable {
     public MeetingRequest() {
     }
 
-    public MeetingRequest(Long presenterId, Long meetingId, String title, String startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl) {
+    public MeetingRequest(Long presenterId, Long meetingId, String title, String description, String startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl) {
         this.presenterId = presenterId;
         this.meetingId = meetingId;
         this.title = title;
+        this.description = description;
         this.startDateTime = startDateTime;
         this.duration = duration;
         this.presenterToken = presenterToken;
@@ -40,7 +42,7 @@ public class MeetingRequest implements Serializable {
         PresenterBean presenterBean = new PresenterBean(this.presenterId);
 
         Date timeOfMeetingStart = Util.convertStringDateTimeToDate(startDateTime);
-        MeetingBean meetingBean = new MeetingBean(meetingId, title, timeOfMeetingStart, duration, presenterToken, attendeesToken, recordedUrl, presenterBean);
+        MeetingBean meetingBean = new MeetingBean(meetingId, title, description, timeOfMeetingStart, duration, presenterToken, attendeesToken, recordedUrl, presenterBean);
         return meetingBean;
     }
 
@@ -106,5 +108,13 @@ public class MeetingRequest implements Serializable {
 
     public void setMeetingId(Long meetingId) {
         this.meetingId = meetingId;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

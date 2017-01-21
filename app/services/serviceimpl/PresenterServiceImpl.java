@@ -55,7 +55,7 @@ public class PresenterServiceImpl implements PresenterServiceI {
                 ErrorConstants error = ErrorConstants.DUPLICATE_EMAIL_ID;
                 throw new BaseException(error.getErrorCode(), error.getErrorMessage(), null);
             }
-            Presenter presenter = new Presenter(presenterBean.getPresenterName(), presenterBean.getEmailId(), presenterBean.getPassword(), presenterBean.getImageBlob(), STATUS.ACTIVE);
+            Presenter presenter = new Presenter(presenterBean.getPresenterName(), presenterBean.getEmailId(), presenterBean.getPassword(), presenterBean.getDesignation(), presenterBean.getDepartment(), presenterBean.getImageBlob(), STATUS.ACTIVE);
             return presenterRepository.save(presenter);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;

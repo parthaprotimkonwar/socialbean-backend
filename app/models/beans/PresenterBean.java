@@ -13,6 +13,8 @@ public class PresenterBean implements Serializable {
     private String presenterName;
     private String emailId;
     private String password;
+    private String designation;
+    private String department;
     private byte[] imageBlob;
     private STATUS status;
 
@@ -23,11 +25,13 @@ public class PresenterBean implements Serializable {
         this.id = id;
     }
 
-    public PresenterBean(Long id, String presenterName, String emailId, String password, byte[] imageBlob, STATUS status) {
+    public PresenterBean(Long id, String presenterName, String emailId, String password, String designation, String department, byte[] imageBlob, STATUS status) {
         this.id = id;
         this.presenterName = presenterName;
         this.emailId = emailId;
         this.password = password;
+        this.designation = designation;
+        this.department = department;
         this.imageBlob = imageBlob;
         this.status = status;
     }
@@ -78,5 +82,21 @@ public class PresenterBean implements Serializable {
 
     public void setStatus(STATUS status) {
         this.status = status;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

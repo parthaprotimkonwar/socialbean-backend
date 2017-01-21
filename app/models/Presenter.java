@@ -30,6 +30,12 @@ public class Presenter implements Serializable {
     @Column(name = "PASSWORD", nullable = false, length = 100)
     private String password;
 
+    @Column(name = "DESIGNATION", length = 40)
+    private String designation;
+
+    @Column(name = "DEPARTMENT", length = 40)
+    private String department;
+
     @Type(type = "org.hibernate.type.BinaryType")
     @Column(name = "IMAGE_BLOB")
     private byte[] imageBlob;
@@ -41,10 +47,12 @@ public class Presenter implements Serializable {
     @OneToMany(mappedBy = "presenter")
     private List<Meeting> meetingList;
 
-    public Presenter(String presenterName, String emailId, String password, byte[] imageBlob, STATUS status) {
+    public Presenter(String presenterName, String emailId, String password, String designation, String department, byte[] imageBlob, STATUS status) {
         this.presenterName = presenterName;
         this.emailId = emailId;
         this.password = password;
+        this.designation = designation;
+        this.department = department;
         this.imageBlob = imageBlob;
         this.status = status;
     }
@@ -58,7 +66,7 @@ public class Presenter implements Serializable {
      * @return
      */
     public PresenterBean toPresenterBean() {
-        return new PresenterBean(this.getId(), this.getPresenterName(), this.getEmailId(), this.getPassword(), this.getImageBlob(), this.getStatus());
+        return new PresenterBean(this.getId(), this.getPresenterName(), this.getEmailId(), this.getPassword(), designation, department, this.getImageBlob(), this.getStatus());
     }
 
     public Long getId() {
@@ -111,5 +119,21 @@ public class Presenter implements Serializable {
 
     public void setMeetingList(List<Meeting> meetingList) {
         this.meetingList = meetingList;
+    }
+
+    public String getDesignation() {
+        return designation;
+    }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(String department) {
+        this.department = department;
     }
 }

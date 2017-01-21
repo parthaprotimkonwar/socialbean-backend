@@ -22,6 +22,9 @@ public class Meeting implements Serializable {
     @Column(name = "TITLE", nullable = false, length = 60)
     private String title;
 
+    @Column(name = "DESCRIPTION", columnDefinition = "text")
+    private String description;
+
     @Column(name = "START_DATE_TIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date startDateTime;
@@ -43,8 +46,9 @@ public class Meeting implements Serializable {
     private Presenter presenter;
 
 
-    public Meeting(String title, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, Presenter presenter) {
+    public Meeting(String title, String description, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, Presenter presenter) {
         this.title = title;
+        this.description = description;
         this.startDateTime = startDateTime;
         this.duration = duration;
         this.presenterToken = presenterToken;
@@ -62,7 +66,7 @@ public class Meeting implements Serializable {
      * @return
      */
     public MeetingBean toMeetingBean() {
-        return new MeetingBean(this.getId(), this.getTitle(), this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getPresenter().toPresenterBean());
+        return new MeetingBean(this.getId(), this.getTitle(), description, this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getPresenter().toPresenterBean());
     }
 
     public Long getId() {
@@ -123,5 +127,13 @@ public class Meeting implements Serializable {
 
     public void setPresenter(Presenter presenter) {
         this.presenter = presenter;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

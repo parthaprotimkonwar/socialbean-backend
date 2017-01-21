@@ -64,7 +64,7 @@ public class MeetingServiceImpl implements MeetingServiceI {
     @Override
     public Meeting createMeeting(MeetingBean meetingBean, Presenter presenter) throws BaseException {
         try {
-            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, presenter);
+            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getDescription(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, presenter);
             meeting = meetingRepository.save(meeting);
             MeetingToken presenterToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
             MeetingToken attendeeToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.ATTENDEE);
