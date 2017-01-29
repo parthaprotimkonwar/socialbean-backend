@@ -7,6 +7,7 @@ import javax.inject.Singleton;
 import services.service.MeetingServiceI;
 import services.service.PersonServiceI;
 import services.service.PresenterServiceI;
+import communication.ws.socialvid.api.ConferenceApi;
 
 @Named
 @Singleton
@@ -20,5 +21,8 @@ public class ServicesFactory {
 
 	@Inject
 	public MeetingServiceI meetingService;
+
+	@Inject
+	public ConferenceApi conferenceApi;
 	
 }

@@ -17,5 +17,6 @@ libraryDependencies ++= Seq(
     "org.hibernate" % "hibernate-entitymanager" % "5.0.2.Final",
     "org.mockito" % "mockito-core" % "1.9.5" % "test",
     "org.postgresql" % "postgresql" % "9.4-1200-jdbc41",
-    "org.apache.httpcomponents" % "httpcore" % "4.4.5"
+    "org.apache.httpcomponents" % "httpcore" % "4.4.5",
+    "javax.mail" % "mail" % "1.4"
 )

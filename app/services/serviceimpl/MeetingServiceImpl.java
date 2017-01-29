@@ -1,7 +1,5 @@
 package services.serviceimpl;
 
-import application.encryption.MeetingToken;
-import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import models.Meeting;
@@ -64,13 +62,12 @@ public class MeetingServiceImpl implements MeetingServiceI {
     @Override
     public Meeting createMeeting(MeetingBean meetingBean, Presenter presenter) throws BaseException {
         try {
-            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getDescription(), meetingBean.getStartDateTime(), meetingBean.getDuration(), null, null, null, presenter);
-            meeting = meetingRepository.save(meeting);
-            MeetingToken presenterToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
-            MeetingToken attendeeToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.ATTENDEE);
-
-            meeting.setPresenterToken(presenterToken.encode());
-            meeting.setAttendeesToken(attendeeToken.encode());
+            Meeting meeting = new Meeting(meetingBean.getTitle(), meetingBean.getDescription(), meetingBean.getStartDateTime(), meetingBean.getDuration(), meetingBean.getPresenterToken(), meetingBean.getAttendeesToken(), null, presenter);
+            //meeting = meetingRepository.save(meeting);
+            //MeetingToken presenterToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.PRESENTER);
+            //MeetingToken attendeeToken = new MeetingToken(meeting.getId(), presenter.getId(), meetingBean.getStartDateTime(), USER_TYPE.ATTENDEE);
+            //meeting.setPresenterToken(presenterToken.encode());
+            //meeting.setAttendeesToken(attendeeToken.encode());
             return meetingRepository.save(meeting);
         } catch (Exception ex) {
             ErrorConstants error = ErrorConstants.DATA_FETCH_EXCEPTION;

@@ -29,6 +29,14 @@ public class BaseController extends Controller{
 		}
 	}
 
+	public <A> A convertJsonNodeToObject(JsonNode jsonNode, Class<A> clazz) throws BaseException {
+		try {
+			return Json.fromJson(jsonNode, clazz);
+		} catch (Exception ex) {
+			ErrorConstants error = ErrorConstants.INVALID_REQUEST_DATA;
+			throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+		}
+	}
 	/**
 	 * Generate error which is unknown to system
 	 * @return
