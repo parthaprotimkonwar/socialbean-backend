@@ -14,6 +14,10 @@ POST           /user/login                                    @rest.controllers.
 
 POST           /user/forgotpassword                           @rest.controllers.UserController.forgotpassword
 
+GET            /user/profile/:presenterId                     @rest.controllers.UserController.presenterProfile(presenterId :Long)
+
+POST           /user/updateprofile                           @rest.controllers.UserController.updateProfile
+
 GET            /meetings/all/:presenterId/:meetingType        @rest.controllers.MeetingController.meetings(presenterId :Long, meetingType :String)
 
 POST           /meetings/create                               @rest.controllers.MeetingController.createNewMeeting
@@ -21,6 +25,8 @@ POST           /meetings/create                               @rest.controllers.
 GET            /meetings/find/:userType/:tokenId              @rest.controllers.MeetingController.findMeeting(userType :String, tokenId :String)
 
 PUT            /meetings/saveurl                              @rest.controllers.MeetingController.storeRecordedUrl
+
+OPTIONS        /user/updateprofile                            @rest.controllers.CORSAllowController.enablecors
 
 OPTIONS        /user/register                                 @rest.controllers.CORSAllowController.enablecors
 

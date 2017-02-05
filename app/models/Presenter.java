@@ -47,6 +47,17 @@ public class Presenter implements Serializable {
     @OneToMany(mappedBy = "presenter")
     private List<Meeting> meetingList;
 
+    public Presenter(Long id, String presenterName, String emailId, String password, String designation, String department, byte[] imageBlob, STATUS status) {
+        this.id = id;
+        this.presenterName = presenterName;
+        this.emailId = emailId;
+        this.password = password;
+        this.designation = designation;
+        this.department = department;
+        this.imageBlob = imageBlob;
+        this.status = status;
+    }
+
     public Presenter(String presenterName, String emailId, String password, String designation, String department, byte[] imageBlob, STATUS status) {
         this.presenterName = presenterName;
         this.emailId = emailId;
@@ -68,6 +79,7 @@ public class Presenter implements Serializable {
     public PresenterBean toPresenterBean() {
         return new PresenterBean(this.getId(), this.getPresenterName(), this.getEmailId(), this.getPassword(), designation, department, this.getImageBlob(), this.getStatus());
     }
+
 
     public Long getId() {
         return id;

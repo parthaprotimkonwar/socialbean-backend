@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface PresenterServiceI {
 
+
     /**
      * Find a presenter
-     *
      * @param id
      * @return
      * @throws BaseException
@@ -46,6 +46,14 @@ public interface PresenterServiceI {
     Presenter login(PresenterBean presenterBean) throws BaseException;
 
 
+    /**
+     * Update a presenter
+     * @param presenterBean
+     * @return
+     * @throws BaseException
+     */
+    Presenter updatePresenter(PresenterBean presenterBean) throws BaseException;
+    
     /**
      * Forgot Password
      *

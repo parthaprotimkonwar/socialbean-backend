@@ -74,6 +74,18 @@ public class PresenterServiceImpl implements PresenterServiceI {
     }
 
     @Override
+    public Presenter updatePresenter(PresenterBean presenterBean) throws BaseException {
+        try {
+            Presenter presenter = findPresenter(presenterBean.getId());
+            presenter.setImageBlob(presenterBean.getImageBlob());
+            return presenterRepository.save(presenter);
+        } catch (Exception ex) {
+            ErrorConstants error = ErrorConstants.DATA_PERSISTANT_EXCEPTION;
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+        }
+    }
+
+    @Override
     public Presenter forgotPassword(PresenterBean presenterBean) throws BaseException {
         try {
             return presenterRepository.findByEmailId(presenterBean.getEmailId());

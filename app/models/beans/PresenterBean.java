@@ -1,6 +1,8 @@
 package models.beans;
 
 import application.enums.STATUS;
+import application.utilities.ImageUtils;
+import models.Presenter;
 
 import java.io.Serializable;
 
@@ -15,6 +17,7 @@ public class PresenterBean implements Serializable {
     private String password;
     private String designation;
     private String department;
+    private String imageString;
     private byte[] imageBlob;
     private STATUS status;
 
@@ -98,5 +101,15 @@ public class PresenterBean implements Serializable {
 
     public void setDepartment(String department) {
         this.department = department;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
+
+        setImageBlob(ImageUtils.fromBase64decodedImageToByte(imageString));
     }
 }

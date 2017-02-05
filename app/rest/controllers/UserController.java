@@ -7,6 +7,7 @@ import models.Presenter;
 import models.beans.PresenterBean;
 import play.mvc.Result;
 import rest.base.BaseController;
+import rest.bean.response.PresenterResponse;
 import rest.bean.response.ResponseBean;
 import rest.responsedto.ErrorResponse;
 import services.ServicesFactory;
@@ -26,6 +27,46 @@ public class UserController extends BaseController {
     @Inject
     ServicesFactory servicesFactory;
 
+    public Result presenterProfile(Long id) {
+        ResponseBean responseBean = null;
+        try {
+            Presenter presenter = servicesFactory.presenterService.findPresenter(id);
+            if(presenter == null) {
+                ErrorConstants error = ErrorConstants.INVALID_REQUEST_DATA;
+                ErrorResponse errorResponse = new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
+                responseBean = new ResponseBean(STATUS.FAILURE, null, null, errorResponse);
+            } else {
+                PresenterResponse presenterResponse = new PresenterResponse(presenter);
+                responseBean = new ResponseBean(STATUS.SUCCESS, null, presenterResponse, null);
+            }
+        } catch (BaseException ex) {
+            System.out.println(ex.getCause());
+            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
+            return errorObjectToJsonResponse(errorResponse);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = unknownErrorResponse();
+            return errorObjectToJsonResponse(errorResponse);
+        }
+        return convertObjectToJsonResponse(responseBean);
+    }
+
+    public Result updateProfile() {
+        ResponseBean responseBean = null;
+        try {
+            PresenterBean presenterBean = convertRequestBodyToObject(request().body(), PresenterBean.class);
+            Presenter presenter = servicesFactory.presenterService.updatePresenter(presenterBean);
+            PresenterResponse presenterResponse = new PresenterResponse(presenter);
+            responseBean = new ResponseBean(STATUS.SUCCESS, null, presenterResponse, null);
+        } catch (BaseException ex) {
+            System.out.println(ex.getCause());
+            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
+            return errorObjectToJsonResponse(errorResponse);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = unknownErrorResponse();
+            return errorObjectToJsonResponse(errorResponse);
+        }
+        return convertObjectToJsonResponse(responseBean);
+    }
 
     /**
      * User Register
@@ -65,7 +106,8 @@ public class UserController extends BaseController {
                 ErrorResponse errorResponse = new ErrorResponse(error.getErrorCode(), error.getErrorMessage());
                 responseBean = new ResponseBean(STATUS.FAILURE, null, null, errorResponse);
             } else {
-                responseBean = new ResponseBean(STATUS.SUCCESS, null, presenter.toPresenterBean(), null);
+                PresenterResponse presenterResponse = new PresenterResponse(presenter);
+                responseBean = new ResponseBean(STATUS.SUCCESS, null, presenterResponse, null);
             }
         } catch (BaseException ex) {
             System.out.println(ex.getCause());
