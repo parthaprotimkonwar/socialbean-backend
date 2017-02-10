@@ -7,6 +7,8 @@ import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import application.utilities.Constants;
 import communication.email.EmailClient;
+import communication.email.client.SendEmail;
+import communication.email.processor.Fields;
 import models.Meeting;
 import models.Presenter;
 import models.beans.MeetingBean;
@@ -93,8 +95,16 @@ public class MeetingController extends BaseController {
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
-            EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
+            //String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
+            //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
+
+            Fields bodyFields = new Fields();
+            bodyFields.addField("professor_name", "Partha Protim Konwar");
+            bodyFields.addField("department_name", "Information Science");
+            bodyFields.addField("topic", "Grid Computing");
+            bodyFields.addField("url", "http://google.com/abcd/efg");
+
+            new SendEmail().sendMeetingInvite("sdaya2012@gmail.com", "partha.ghy3333@gmail.com", "Demo1", bodyFields, new Fields());
 
         } catch (BaseException ex) {
             System.out.println(ex.getCause());

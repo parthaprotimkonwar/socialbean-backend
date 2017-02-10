@@ -11,8 +11,8 @@ import java.util.Properties;
 public class EmailClient {
 
     public static void sendEmail(String toAddress, String subject, String body) {
-        final String username = "parthaprotimkonwar@gmail.com";
-        final String password = "asdfgqwerty";
+        final String username = "myn61820@gmail.com";
+        final String password = "myn61820!";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
