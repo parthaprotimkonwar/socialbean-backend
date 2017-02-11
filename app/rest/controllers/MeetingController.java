@@ -6,6 +6,7 @@ import application.enums.USER_TYPE;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import application.utilities.Constants;
+import application.utilities.Util;
 import communication.email.EmailClient;
 import communication.email.client.SendEmail;
 import communication.email.processor.Fields;
@@ -26,6 +27,7 @@ import communication.ws.socialvid.bean.response.UserLoginResponse;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -95,16 +97,27 @@ public class MeetingController extends BaseController {
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            //String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
+            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
             //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
 
-            Fields bodyFields = new Fields();
-            bodyFields.addField("professor_name", "Partha Protim Konwar");
-            bodyFields.addField("department_name", "Information Science");
-            bodyFields.addField("topic", "Grid Computing");
-            bodyFields.addField("url", "http://google.com/abcd/efg");
 
-            new SendEmail().sendMeetingInvite("sdaya2012@gmail.com", "partha.ghy3333@gmail.com", "Demo1", bodyFields, new Fields());
+            Fields bodyFields = new Fields();
+            bodyFields.addField("professor_name", presenter.getPresenterName());
+            bodyFields.addField("department_name", presenter.getDepartment());
+            bodyFields.addField("topic", meetingBean.getTitle());
+            bodyFields.addField("url", meetingUrl);
+            bodyFields.addField("scheduled_datetime", meetingBean.getStartDateTime().toString());
+
+            Fields calenderInviteFields = new Fields();
+            calenderInviteFields.addField("to_email", presenter.getEmailId());
+            calenderInviteFields.addField("start_time", Util.convertDateToString(meetingBean.getStartDateTime()));
+            calenderInviteFields.addField("end_time", Util.convertDateToString(meetingBean.getStartDateTime(), meetingBean.getDuration()));
+            calenderInviteFields.addField("conference_location", meetingUrl);
+            calenderInviteFields.addField("current_time", Util.convertDateToString(new Date()));
+            calenderInviteFields.addField("meeting_description", meetingBean.getDescription());
+            calenderInviteFields.addField("meeting_topic",meetingBean.getTitle());
+            calenderInviteFields.addField("unique_id", String.valueOf(System.currentTimeMillis()));
+            new SendEmail().sendMeetingInvite("sdaya2012@gmail.com", "partha.ghy3333@gmail.com", "Meeting Scheduled by " + presenter.getPresenterName(), bodyFields, calenderInviteFields);
 
         } catch (BaseException ex) {
             System.out.println(ex.getCause());

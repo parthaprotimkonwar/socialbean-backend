@@ -37,7 +37,6 @@ public class PrepareEmailMessages {
         Template calenderInviteTemplate = new TemplateFactory().getTemplate(templateType);
         //template content replaced
         String calenderInviteContent  = new TemplateFieldsFacade(calenderInviteTemplate, fields).merge();
-
         BodyPart calenderInvitePart = new MimeBodyPart();
 
         // Fill the message

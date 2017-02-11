@@ -48,7 +48,7 @@ public class MeetingInviteTemplate implements Template {
                 "                    <p>Department of `department_name`</p>\n" +
                 "                    <p><em>&nbsp;</em></p>\n" +
                 "                    <p><em>invites you to join a meeting scheduled on</em></p>\n" +
-                "                    <p><strong style=\"font-size: 1.2em\">Monday February 20<sup>th</sup> 2017&nbsp; 10am-11am</strong>\n" +
+                "                    <p><strong style=\"font-size: 1.2em\">`scheduled_datetime`</strong>\n" +
                 "                    </p>\n" +
                 "                    <p><strong>&nbsp;</strong></p>\n" +
                 "                    <p><strong>&nbsp;</strong></p>\n" +
@@ -72,7 +72,7 @@ public class MeetingInviteTemplate implements Template {
                 "            </div>\n" +
                 "            <br><br>\n" +
                 "            <div class=\"bgimage\" style=\"text-align: center\">\n" +
-                "                &nbsp;Powered by SocialBean ®\n" +
+                "                &nbsp;Powered by Consocio ®\n" +
                 "            </div>\n" +
                 "        </div>\n" +
                 "    </div>\n" +
