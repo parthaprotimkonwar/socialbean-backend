@@ -3,6 +3,7 @@ package rest.controllers;
 import application.enums.STATUS;
 import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
+import application.utilities.ApplicationConf;
 import models.Presenter;
 import models.beans.PresenterBean;
 import play.mvc.Result;

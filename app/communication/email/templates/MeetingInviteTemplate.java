@@ -1,5 +1,7 @@
 package communication.email.templates;
 
+import application.utilities.Constants;
+
 /**
  * Created by pkonwar on 2/9/2017.
  */
@@ -38,7 +40,7 @@ public class MeetingInviteTemplate implements Template {
                 "            <!--Header-->\n" +
                 "            <br>\n" +
                 "            <div>\n" +
-                "                <img src=\"http://ec2-35-161-127-166.us-west-2.compute.amazonaws.com:3000/img/logo_small.jpg\">\n" +
+                "                <img src=\"" + Constants.BACKEND_ASSETS_LOGO +"\">\n" +
                 "            </div>\n" +
                 "            <hr>\n" +
                 "\n" +
