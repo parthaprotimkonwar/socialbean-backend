@@ -17,6 +17,7 @@ public class MeetingBean implements Serializable {
     private String presenterToken;
     private String attendeesToken;
     private String recordedUrl;
+    private String invitees;
     private PresenterBean presenterBean;
 
     public MeetingBean() {
@@ -114,5 +115,13 @@ public class MeetingBean implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getInvitees() {
+        return invitees;
+    }
+
+    public void setInvitees(String invitees) {
+        this.invitees = invitees;
     }
 }

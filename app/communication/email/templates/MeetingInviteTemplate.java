@@ -44,7 +44,7 @@ public class MeetingInviteTemplate implements Template {
                 "\n" +
                 "            <div>\n" +
                 "                <div style=\"text-align: center\">\n" +
-                "                    <p><strong style=\"font-size: 2em\">`professor_name`</strong>, HOD,</p>\n" +
+                "                    <p><strong style=\"font-size: 2em\">`professor_name`</strong>, `professor_designation`,</p>\n" +
                 "                    <p>Department of `department_name`</p>\n" +
                 "                    <p><em>&nbsp;</em></p>\n" +
                 "                    <p><em>invites you to join a meeting scheduled on</em></p>\n" +

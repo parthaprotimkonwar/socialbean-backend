@@ -7,7 +7,7 @@ import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import application.utilities.Constants;
 import application.utilities.Util;
-import communication.email.EmailClient;
+import communication.email.client.EmailExecutor;
 import communication.email.client.SendEmail;
 import communication.email.processor.Fields;
 import models.Meeting;
@@ -103,6 +103,7 @@ public class MeetingController extends BaseController {
 
             Fields bodyFields = new Fields();
             bodyFields.addField("professor_name", presenter.getPresenterName());
+            bodyFields.addField("professor_designation", presenter.getDesignation());
             bodyFields.addField("department_name", presenter.getDepartment());
             bodyFields.addField("topic", meetingBean.getTitle());
             bodyFields.addField("url", meetingUrl);
@@ -117,7 +118,13 @@ public class MeetingController extends BaseController {
             calenderInviteFields.addField("meeting_description", meetingBean.getDescription());
             calenderInviteFields.addField("meeting_topic",meetingBean.getTitle());
             calenderInviteFields.addField("unique_id", String.valueOf(System.currentTimeMillis()));
-            new SendEmail().sendMeetingInvite("sdaya2012@gmail.com", "partha.ghy3333@gmail.com", "Meeting Scheduled by " + presenter.getPresenterName(), bodyFields, calenderInviteFields);
+
+            String[] invitees = meetingBean.getInvitees().split(",");
+
+            for(String invitee : invitees) {
+                System.out.println("Sending Email to : " + invitee);
+                EmailExecutor.sendEmailInAsyncMode(new SendEmail("sdaya2012@gmail.com", invitee, "Meeting Scheduled by " + presenter.getPresenterName(), bodyFields, calenderInviteFields));
+            }
 
         } catch (BaseException ex) {
             System.out.println(ex.getCause());

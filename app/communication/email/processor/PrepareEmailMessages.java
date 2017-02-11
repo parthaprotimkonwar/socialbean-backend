@@ -1,4 +1,4 @@
-package communication.email.client;
+package communication.email.processor;
 
 import communication.email.processor.Fields;
 import communication.email.processor.TemplateFactory;
