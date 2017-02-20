@@ -17,13 +17,14 @@ public class MeetingBean implements Serializable {
     private String presenterToken;
     private String attendeesToken;
     private String recordedUrl;
+    private String mode;
     private String invitees;
     private PresenterBean presenterBean;
 
     public MeetingBean() {
     }
 
-    public MeetingBean(Long id, String title, String description, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, PresenterBean presenterBean) {
+    public MeetingBean(Long id, String title, String description, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, String mode, PresenterBean presenterBean) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -33,6 +34,7 @@ public class MeetingBean implements Serializable {
         this.presenterToken = presenterToken;
         this.attendeesToken = attendeesToken;
         this.recordedUrl = recordedUrl;
+        this.mode = mode;
         this.presenterBean = presenterBean;
     }
 
@@ -123,5 +125,13 @@ public class MeetingBean implements Serializable {
 
     public void setInvitees(String invitees) {
         this.invitees = invitees;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }

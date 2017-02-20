@@ -12,6 +12,7 @@ public enum ConfererenceApiEndpoint implements RestClientEndpointInterface {
     //ENDPOINTS
     USER_LOGIN(HttpRequestType.POST, Constants.SOCIAL_VID_ENDPOINT + "/userlogin"),
     ADD_CONFERENCE(HttpRequestType.POST, Constants.SOCIAL_VID_ENDPOINT + "/user/conference/add"),
+    GET_CONFERENCE(HttpRequestType.POST, Constants.SOCIAL_VID_ENDPOINT + "/user/conference/get"),
     SAMPLE_HTTP(HttpRequestType.POST, "http://localhost:3000/listening"),
     SAMPLE_HTTPS(HttpRequestType.POST, "https://localhost:8443/listening");
 

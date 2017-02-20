@@ -4,6 +4,8 @@ import application.exceptions.BaseException;
 import application.exceptions.ErrorConstants;
 import application.utilities.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
+import communication.ws.socialvid.bean.request.GetConferenceRequest;
+import communication.ws.socialvid.bean.response.GetConferenceResponse;
 import play.libs.F;
 import play.libs.Json;
 import play.libs.WS;
@@ -53,6 +55,22 @@ public class ConferenceApiImpl extends BaseController implements ConferenceApi {
             F.Promise<WS.Response> res = RestClient.sendRequest(ConfererenceApiEndpoint.ADD_CONFERENCE, userRequest, null);
             JsonNode jsonResponse = res.get(Constants.REST_TIMEOUT).asJson();
             response = convertJsonNodeToObject(jsonResponse, CreateConferenceResponse.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ErrorConstants error = ErrorConstants.INTEGRATION_FETCH_RESPONSE_EXCEPTION;
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+        }
+        return response;
+    }
+
+    @Override
+    public GetConferenceResponse getConference(GetConferenceRequest getConferenceRequest) throws BaseException {
+        GetConferenceResponse response;
+        try {
+            JsonNode userRequest = Json.toJson(getConferenceRequest);
+            F.Promise<WS.Response> res = RestClient.sendRequest(ConfererenceApiEndpoint.GET_CONFERENCE, userRequest, null);
+            JsonNode jsonResponse = res.get(Constants.REST_TIMEOUT).asJson();
+            response = convertJsonNodeToObject(jsonResponse, GetConferenceResponse.class);
         } catch (Exception ex) {
             ex.printStackTrace();
             ErrorConstants error = ErrorConstants.INTEGRATION_FETCH_RESPONSE_EXCEPTION;

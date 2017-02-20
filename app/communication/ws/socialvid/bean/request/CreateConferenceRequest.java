@@ -16,7 +16,7 @@ public class CreateConferenceRequest implements Serializable {
         GROUP("group"),
         PRESENTER("presenter");
 
-        String mode;
+        public String mode;
         MODE(String mode) {
             this.mode = mode;
         }

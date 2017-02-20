@@ -1,6 +1,8 @@
 package rest.bean.request;
 
 import application.utilities.Util;
+import communication.ws.socialvid.api.ConferenceApi;
+import communication.ws.socialvid.bean.request.CreateConferenceRequest;
 import models.beans.MeetingBean;
 import models.beans.PresenterBean;
 
@@ -44,7 +46,7 @@ public class MeetingRequest implements Serializable {
         PresenterBean presenterBean = new PresenterBean(this.presenterId);
 
         Date timeOfMeetingStart = Util.convertStringDateTimeToDate(startDateTime);
-        MeetingBean meetingBean = new MeetingBean(meetingId, title, description, timeOfMeetingStart, duration, presenterToken, attendeesToken, recordedUrl, presenterBean);
+        MeetingBean meetingBean = new MeetingBean(meetingId, title, description, timeOfMeetingStart, duration, presenterToken, attendeesToken, recordedUrl, CreateConferenceRequest.MODE.GROUP.mode, presenterBean);
         meetingBean.setInvitees(this.invitees);
         return meetingBean;
     }

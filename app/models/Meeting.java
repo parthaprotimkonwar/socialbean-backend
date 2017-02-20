@@ -41,12 +41,15 @@ public class Meeting implements Serializable {
     @Column(name = "RECORDED_URL", length = 60)
     private String recordedUrl;
 
+    @Column(name = "MODE", length = 20)
+    private String mode;
+
     @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "PRESENTER_ID")
     private Presenter presenter;
 
 
-    public Meeting(String title, String description, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, Presenter presenter) {
+    public Meeting(String title, String description, Date startDateTime, Integer duration, String presenterToken, String attendeesToken, String recordedUrl, String mode, Presenter presenter) {
         this.title = title;
         this.description = description;
         this.startDateTime = startDateTime;
@@ -54,6 +57,7 @@ public class Meeting implements Serializable {
         this.presenterToken = presenterToken;
         this.attendeesToken = attendeesToken;
         this.recordedUrl = recordedUrl;
+        this.mode = mode;
         this.presenter = presenter;
     }
 
@@ -66,7 +70,7 @@ public class Meeting implements Serializable {
      * @return
      */
     public MeetingBean toMeetingBean() {
-        return new MeetingBean(this.getId(), this.getTitle(), description, this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getPresenter().toPresenterBean());
+        return new MeetingBean(this.getId(), this.getTitle(), description, this.getStartDateTime(), this.getDuration(), this.getPresenterToken(), this.getAttendeesToken(), this.getRecordedUrl(), this.getMode(), this.getPresenter().toPresenterBean());
     }
 
     public Long getId() {
@@ -135,5 +139,13 @@ public class Meeting implements Serializable {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getMode() {
+        return mode;
+    }
+
+    public void setMode(String mode) {
+        this.mode = mode;
     }
 }

@@ -2,8 +2,10 @@ package communication.ws.socialvid.api;
 
 import application.exceptions.BaseException;
 import communication.ws.socialvid.bean.request.CreateConferenceRequest;
+import communication.ws.socialvid.bean.request.GetConferenceRequest;
 import communication.ws.socialvid.bean.request.UserLoginRequest;
 import communication.ws.socialvid.bean.response.CreateConferenceResponse;
+import communication.ws.socialvid.bean.response.GetConferenceResponse;
 import communication.ws.socialvid.bean.response.UserLoginResponse;
 
 /**
@@ -27,4 +29,14 @@ public interface ConferenceApi {
      * @return
      */
     CreateConferenceResponse createConference(CreateConferenceRequest createConferenceRequest) throws BaseException;
+
+
+    /**
+     * Get the conference details based on the conference id
+     * @param getConferenceRequest
+     * @return
+     * @throws BaseException
+     */
+    GetConferenceResponse getConference(GetConferenceRequest getConferenceRequest) throws BaseException;
+
 }

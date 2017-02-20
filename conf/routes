@@ -16,7 +16,7 @@ POST           /user/forgotpassword                           @rest.controllers.
 
 GET            /user/profile/:presenterId                     @rest.controllers.UserController.presenterProfile(presenterId :Long)
 
-POST           /user/updateprofile                           @rest.controllers.UserController.updateProfile
+POST           /user/updateprofile                            @rest.controllers.UserController.updateProfile
 
 GET            /meetings/all/:presenterId/:meetingType        @rest.controllers.MeetingController.meetings(presenterId :Long, meetingType :String)
 
@@ -24,7 +24,7 @@ POST           /meetings/create                               @rest.controllers.
 
 POST           /meetings/instant                              @rest.controllers.MeetingController.createQuickMeeting
 
-GET            /meetings/find/:userType/:tokenId              @rest.controllers.MeetingController.findMeeting(userType :String, tokenId :String)
+GET            /meetings/find/:conferenceId                   @rest.controllers.MeetingController.findMeeting(conferenceId :String)
 
 PUT            /meetings/saveurl                              @rest.controllers.MeetingController.storeRecordedUrl
 

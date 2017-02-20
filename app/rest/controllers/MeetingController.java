@@ -10,6 +10,8 @@ import application.utilities.Util;
 import communication.email.client.EmailExecutor;
 import communication.email.client.SendEmail;
 import communication.email.processor.Fields;
+import communication.ws.socialvid.bean.request.GetConferenceRequest;
+import communication.ws.socialvid.bean.response.GetConferenceResponse;
 import models.Meeting;
 import models.Presenter;
 import models.beans.MeetingBean;
@@ -94,10 +96,12 @@ public class MeetingController extends BaseController {
             meetingBean.setPresenterToken(createConferenceResponse.getId());
             meetingBean.setAttendeesToken(createConferenceResponse.getId());
 
+            //set the mode
+            meetingBean.setMode(CreateConferenceRequest.MODE.PRESENTER.mode);
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
+            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_ATTENDEE + "/" + meeting.getAttendeesToken();
             //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
 
 
@@ -144,13 +148,17 @@ public class MeetingController extends BaseController {
             MeetingRequest meetingRequest = convertRequestBodyToObject(request().body(), MeetingRequest.class);
             MeetingBean meetingBean = meetingRequest.toMeetingBean();
 
+            //default for quick meeting
+            meetingBean.setDuration(1);
+            meetingBean.setStartDateTime(new Date());
+
             //Login to the socialvid server
             //@TODO Remove the hard coding of email id and password
             UserLoginRequest userLoginRequest = new UserLoginRequest("arunsimon@gmail.com", "Arun123");
             UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
 
             //Create conference
-            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "20", CreateConferenceRequest.MODE.GROUP);
+            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "5", CreateConferenceRequest.MODE.GROUP);
             CreateConferenceResponse createConferenceResponse = servicesFactory.conferenceApi.createConference(createConferenceRequest);
 
             //the presenter
@@ -160,11 +168,39 @@ public class MeetingController extends BaseController {
             meetingBean.setPresenterToken(createConferenceResponse.getId());
             meetingBean.setAttendeesToken(createConferenceResponse.getId());
 
+            //set mode
+            meetingBean.setMode(CreateConferenceRequest.MODE.GROUP.mode);
+
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            //String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
-            //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
+            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_INSTANT_MEETING + "/" + meeting.getAttendeesToken();
+
+            //meeting invite
+            Fields bodyFields = new Fields();
+            bodyFields.addField("professor_name", presenter.getPresenterName());
+            bodyFields.addField("professor_designation", presenter.getDesignation());
+            bodyFields.addField("department_name", presenter.getDepartment());
+            bodyFields.addField("topic", meetingBean.getTitle());
+            bodyFields.addField("url", meetingUrl);
+            bodyFields.addField("scheduled_datetime", meetingBean.getStartDateTime().toString());
+
+            Fields calenderInviteFields = new Fields();
+            calenderInviteFields.addField("to_email", presenter.getEmailId());
+            calenderInviteFields.addField("start_time", Util.convertDateToString(meetingBean.getStartDateTime()));
+            calenderInviteFields.addField("end_time", Util.convertDateToString(meetingBean.getStartDateTime(), meetingBean.getDuration()));
+            calenderInviteFields.addField("conference_location", meetingUrl);
+            calenderInviteFields.addField("current_time", Util.convertDateToString(new Date()));
+            calenderInviteFields.addField("meeting_description", meetingBean.getDescription());
+            calenderInviteFields.addField("meeting_topic",meetingBean.getTitle());
+            calenderInviteFields.addField("unique_id", String.valueOf(System.currentTimeMillis()));
+
+            String[] invitees = meetingBean.getInvitees().split(",");
+
+            for(String invitee : invitees) {
+                System.out.println("Sending Email to : " + invitee);
+                EmailExecutor.sendEmailInAsyncMode(new SendEmail("sdaya2012@gmail.com", invitee, "Meeting Scheduled by " + presenter.getPresenterName(), bodyFields, calenderInviteFields));
+            }
 
         } catch (BaseException ex) {
             System.out.println(ex.getCause());
@@ -177,8 +213,32 @@ public class MeetingController extends BaseController {
         return convertObjectToJsonResponse(responseBean);
 
     }
+
+    //find meeting based on conference id
+    public Result findMeeting(String conferenceId) {
+
+        ResponseBean responseBean = null;
+        try {
+            UserLoginRequest userLoginRequest = new UserLoginRequest("arunsimon@gmail.com", "Arun123");
+            UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
+
+            GetConferenceRequest conferenceRequest = new GetConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(),conferenceId);
+            GetConferenceResponse conferenceResponse = servicesFactory.conferenceApi.getConference(conferenceRequest);
+
+            responseBean = new ResponseBean(STATUS.SUCCESS, null, conferenceResponse, null);
+        } catch (BaseException ex) {
+            System.out.println(ex.getCause());
+            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
+            return errorObjectToJsonResponse(errorResponse);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = unknownErrorResponse();
+            return errorObjectToJsonResponse(errorResponse);
+        }
+        return convertObjectToJsonResponse(responseBean);
+
+    }
     //find a class
-    public Result findMeeting(String userType, String tokenId) {
+    /*public Result findMeeting(String userType, String tokenId) {
         ResponseBean responseBean = null;
         try {
             USER_TYPE type = USER_TYPE.findUserType(userType);
@@ -206,7 +266,7 @@ public class MeetingController extends BaseController {
             return errorObjectToJsonResponse(errorResponse);
         }
         return convertObjectToJsonResponse(responseBean);
-    }
+    }*/
 
     //store the recorded url
     public Result storeRecordedUrl() {
