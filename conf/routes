@@ -22,6 +22,8 @@ GET            /meetings/all/:presenterId/:meetingType        @rest.controllers.
 
 POST           /meetings/create                               @rest.controllers.MeetingController.createNewMeeting
 
+POST           /meetings/instant                              @rest.controllers.MeetingController.createQuickMeeting
+
 GET            /meetings/find/:userType/:tokenId              @rest.controllers.MeetingController.findMeeting(userType :String, tokenId :String)
 
 PUT            /meetings/saveurl                              @rest.controllers.MeetingController.storeRecordedUrl
@@ -35,6 +37,8 @@ OPTIONS        /user/login                                    @rest.controllers.
 OPTIONS        /user/forgotpassword                           @rest.controllers.CORSAllowController.enablecors
 
 OPTIONS        /meetings/create                               @rest.controllers.CORSAllowController.enablecors
+
+OPTIONS        /meetings/instant                              @rest.controllers.CORSAllowController.enablecors
 
 # Map static resources from the /public folder to the /assets URL path
 GET            /assets/*file                                  controllers.Assets.at(path="/public", file)

@@ -10,19 +10,32 @@ import java.io.Serializable;
 @JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class CreateConferenceRequest implements Serializable {
 
+    //the conference mode
+    public enum MODE{
+
+        GROUP("group"),
+        PRESENTER("presenter");
+
+        String mode;
+        MODE(String mode) {
+            this.mode = mode;
+        }
+    }
     private String email;
     private String session;
     private String name;
-    private String mode = "group";
+    private String mode;
     private Boolean autoRecord = true;
     private String maxBitrateKbps = "512";
     private String maxParticipants;
 
-    public CreateConferenceRequest(String email, String session, String name, String maxParticipants) {
+    public CreateConferenceRequest(String email, String session, String name, String maxParticipants, MODE mode) {
         this.email = email;
         this.session = session;
         this.name = name;
         this.maxParticipants = maxParticipants;
+        //default mode is group
+        this.mode = mode == null ? MODE.GROUP.mode : mode.mode;
     }
 
     public String getEmail() {

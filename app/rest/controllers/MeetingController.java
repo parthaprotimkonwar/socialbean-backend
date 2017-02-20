@@ -84,7 +84,7 @@ public class MeetingController extends BaseController {
             UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
 
             //Create conference
-            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "20");
+            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "20", CreateConferenceRequest.MODE.PRESENTER);
             CreateConferenceResponse createConferenceResponse = servicesFactory.conferenceApi.createConference(createConferenceRequest);
 
             //the presenter
@@ -137,6 +137,46 @@ public class MeetingController extends BaseController {
         return convertObjectToJsonResponse(responseBean);
     }
 
+    public Result createQuickMeeting() {
+
+        ResponseBean responseBean = null;
+        try {
+            MeetingRequest meetingRequest = convertRequestBodyToObject(request().body(), MeetingRequest.class);
+            MeetingBean meetingBean = meetingRequest.toMeetingBean();
+
+            //Login to the socialvid server
+            //@TODO Remove the hard coding of email id and password
+            UserLoginRequest userLoginRequest = new UserLoginRequest("arunsimon@gmail.com", "Arun123");
+            UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
+
+            //Create conference
+            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "20", CreateConferenceRequest.MODE.GROUP);
+            CreateConferenceResponse createConferenceResponse = servicesFactory.conferenceApi.createConference(createConferenceRequest);
+
+            //the presenter
+            Presenter presenter = servicesFactory.presenterService.findPresenter(meetingBean.getPresenterBean().getId());
+
+            //add the conference as the token
+            meetingBean.setPresenterToken(createConferenceResponse.getId());
+            meetingBean.setAttendeesToken(createConferenceResponse.getId());
+
+            Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
+            responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
+
+            //String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT + "/" + meeting.getAttendeesToken();
+            //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
+
+        } catch (BaseException ex) {
+            System.out.println(ex.getCause());
+            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
+            return errorObjectToJsonResponse(errorResponse);
+        } catch (Exception e) {
+            ErrorResponse errorResponse = unknownErrorResponse();
+            return errorObjectToJsonResponse(errorResponse);
+        }
+        return convertObjectToJsonResponse(responseBean);
+
+    }
     //find a class
     public Result findMeeting(String userType, String tokenId) {
         ResponseBean responseBean = null;
