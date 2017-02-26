@@ -1,5 +1,6 @@
 package rest.controllers;
 
+import application.clientspec.ClientAssets;
 import application.enums.MEETING_TYPE;
 import application.enums.STATUS;
 import application.enums.USER_TYPE;
@@ -104,7 +105,7 @@ public class MeetingController extends BaseController {
             String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_ATTENDEE + "/" + meeting.getAttendeesToken();
             //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
 
-
+            ClientAssets clientAssets = new ClientAssets(meetingRequest.getClientName());
             Fields bodyFields = new Fields();
             bodyFields.addField("professor_name", presenter.getPresenterName());
             bodyFields.addField("professor_designation", presenter.getDesignation());
@@ -112,6 +113,7 @@ public class MeetingController extends BaseController {
             bodyFields.addField("topic", meetingBean.getTitle());
             bodyFields.addField("url", meetingUrl);
             bodyFields.addField("scheduled_datetime", meetingBean.getStartDateTime().toString());
+            bodyFields.addField("client_image_name", clientAssets.getImageNameForEmailHeader());
 
             Fields calenderInviteFields = new Fields();
             calenderInviteFields.addField("to_email", presenter.getEmailId());
@@ -176,6 +178,9 @@ public class MeetingController extends BaseController {
 
             String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_INSTANT_MEETING + "/" + meeting.getAttendeesToken();
 
+            //get client specific assets
+            ClientAssets clientAssets = new ClientAssets(meetingRequest.getClientName());
+
             //meeting invite
             Fields bodyFields = new Fields();
             bodyFields.addField("professor_name", presenter.getPresenterName());
@@ -184,6 +189,7 @@ public class MeetingController extends BaseController {
             bodyFields.addField("topic", meetingBean.getTitle());
             bodyFields.addField("url", meetingUrl);
             bodyFields.addField("scheduled_datetime", meetingBean.getStartDateTime().toString());
+            bodyFields.addField("client_image_name", clientAssets.getImageNameForEmailHeader());
 
             Fields calenderInviteFields = new Fields();
             calenderInviteFields.addField("to_email", presenter.getEmailId());

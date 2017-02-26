@@ -8,6 +8,4 @@ public enum TEMPLATES {
     MEETING_INVITE_EMAIL_TEMPLATE,
     CALENDER_INVITE
 
-
-
 }

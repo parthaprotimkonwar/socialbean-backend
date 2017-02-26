@@ -25,6 +25,8 @@ public class MeetingRequest implements Serializable {
     private String recordedUrl;
     private String invitees;
 
+    //extra params
+    private String clientName;
 
     public MeetingRequest() {
     }
@@ -129,5 +131,13 @@ public class MeetingRequest implements Serializable {
 
     public void setInvitees(String invitees) {
         this.invitees = invitees;
+    }
+
+    public String getClientName() {
+        return clientName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
     }
 }

@@ -40,7 +40,7 @@ public class MeetingInviteTemplate implements Template {
                 "            <!--Header-->\n" +
                 "            <br>\n" +
                 "            <div>\n" +
-                "                <img src=\"" + Constants.BACKEND_ASSETS_LOGO +"\">\n" +
+                "                <img src=\"" + Constants.BACKEND_ASSETS_LOGO_PATH + "/`client_image_name`" +"\">\n" +
                 "            </div>\n" +
                 "            <hr>\n" +
                 "\n" +
