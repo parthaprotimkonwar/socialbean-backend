@@ -21,13 +21,13 @@ public interface Constants {
 
 
     //logo small
-    String BACKEND_ASSETS_LOGO_PATH = ApplicationConf.readProperty(BACKEND_APP_PROTOCOL)+ "://" + ApplicationConf.readProperty(BACKEND_APP_HOST) + ":" + ApplicationConf.readProperty(BACKEND_APP_PORT) +"/assets";
+    String BACKEND_ASSETS_LOGO_PATH = ApplicationConf.readProperty(BACKEND_APP_PROTOCOL) + "://" + ApplicationConf.readProperty(BACKEND_APP_HOST) + ":" + ApplicationConf.readProperty(BACKEND_APP_PORT) + "/assets";
 
     //Third Party API
     String SOCIAL_VID_ENDPOINT = "https://ha.socialvid.in/adminapi/v1";
-    String CONFERENCE_UI_ENDPOINT_INSTANT_MEETING = ApplicationConf.readProperty(CONFERENCE_UI_PROTOCOL) + "://" + ApplicationConf.readProperty(CONFERENCE_UI_HOST) + ":" + ApplicationConf.readProperty(CONFERENCE_UI_PORT) + "/conferencing.html#/conference/join/guest";
-    String CONFERENCE_UI_ENDPOINT_PRESENTER = ApplicationConf.readProperty(CONFERENCE_UI_PROTOCOL) + "://" + ApplicationConf.readProperty(CONFERENCE_UI_HOST) + ":" + ApplicationConf.readProperty(CONFERENCE_UI_PORT) + "/conferencing.html#/conference/join/p";
-    String CONFERENCE_UI_ENDPOINT_ATTENDEE = ApplicationConf.readProperty(CONFERENCE_UI_PROTOCOL) + "://" + ApplicationConf.readProperty(CONFERENCE_UI_HOST) + ":" + ApplicationConf.readProperty(CONFERENCE_UI_PORT) + "/conferencing.html#/conference/join/a";
+    String CONFERENCE_UI_ENDPOINT_INSTANT_MEETING = "/conferencing.html#/conference/join/guest";
+    String CONFERENCE_UI_ENDPOINT_PRESENTER = "/conferencing.html#/conference/join/p";
+    String CONFERENCE_UI_ENDPOINT_ATTENDEE = "/conferencing.html#/conference/join/a";
 
 
 }

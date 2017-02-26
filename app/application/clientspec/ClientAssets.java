@@ -1,5 +1,8 @@
 package application.clientspec;
 
+import application.utilities.ApplicationConf;
+import application.utilities.Constants;
+
 /**
  * Created by parthaprotimkonwar on 26/02/17.
  */
@@ -37,6 +40,15 @@ public class ClientAssets {
         return imageName;
     }
 
+
+    public String getConferenceUrl() {
+
+        String protocol = ApplicationConf.readProperty(Constants.CONFERENCE_UI_PROTOCOL + "." + clientOnboarded.name);
+        String host = ApplicationConf.readProperty(Constants.CONFERENCE_UI_HOST + "." + clientOnboarded.name);
+        String port = ApplicationConf.readProperty(Constants.CONFERENCE_UI_PORT + "." + clientOnboarded.name);
+        return protocol + "://" + host + ":" + port;
+    }
+
     //returns the selected client or the default client
     private ClientOnboarded getClientOnboarded(String clientName) {
 
@@ -52,5 +64,6 @@ public class ClientAssets {
     public static void main(String[] args) {
         ClientAssets assets = new ClientAssets("ALLIANZ");
         System.out.println(assets.getImageNameForEmailHeader());
+        System.out.println(assets.getConferenceUrl());
     }
 }

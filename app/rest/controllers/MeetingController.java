@@ -102,10 +102,12 @@ public class MeetingController extends BaseController {
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_ATTENDEE + "/" + meeting.getAttendeesToken();
+            ClientAssets clientAssets = new ClientAssets(meetingRequest.getClientName());
+
+            String meetingUrl = clientAssets.getConferenceUrl() + Constants.CONFERENCE_UI_ENDPOINT_ATTENDEE + "/" + meeting.getAttendeesToken();
             //EmailClient.sendEmail(meeting.getPresenter().getEmailId(), "Meeting Scheduled" , "The Url is : " + meetingUrl);
 
-            ClientAssets clientAssets = new ClientAssets(meetingRequest.getClientName());
+
             Fields bodyFields = new Fields();
             bodyFields.addField("professor_name", presenter.getPresenterName());
             bodyFields.addField("professor_designation", presenter.getDesignation());
@@ -176,10 +178,12 @@ public class MeetingController extends BaseController {
             Meeting meeting = servicesFactory.meetingService.createMeeting(meetingBean, presenter);
             responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
 
-            String meetingUrl = Constants.CONFERENCE_UI_ENDPOINT_INSTANT_MEETING + "/" + meeting.getAttendeesToken();
-
             //get client specific assets
             ClientAssets clientAssets = new ClientAssets(meetingRequest.getClientName());
+
+            String meetingUrl = clientAssets.getConferenceUrl() + Constants.CONFERENCE_UI_ENDPOINT_INSTANT_MEETING + "/" + meeting.getAttendeesToken();
+
+
 
             //meeting invite
             Fields bodyFields = new Fields();
