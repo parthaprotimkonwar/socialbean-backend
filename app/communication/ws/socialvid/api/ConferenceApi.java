@@ -3,9 +3,11 @@ package communication.ws.socialvid.api;
 import application.exceptions.BaseException;
 import communication.ws.socialvid.bean.request.CreateConferenceRequest;
 import communication.ws.socialvid.bean.request.GetConferenceRequest;
+import communication.ws.socialvid.bean.request.GetRecordingUrlRequest;
 import communication.ws.socialvid.bean.request.UserLoginRequest;
 import communication.ws.socialvid.bean.response.CreateConferenceResponse;
 import communication.ws.socialvid.bean.response.GetConferenceResponse;
+import communication.ws.socialvid.bean.response.GetRecordingUrlResponse;
 import communication.ws.socialvid.bean.response.UserLoginResponse;
 
 /**
@@ -38,5 +40,13 @@ public interface ConferenceApi {
      * @throws BaseException
      */
     GetConferenceResponse getConference(GetConferenceRequest getConferenceRequest) throws BaseException;
+
+    /**
+     * Get Recording URL's for the conference
+     * @param getRecordingUrlRequest
+     * @return
+     * @throws BaseException
+     */
+    GetRecordingUrlResponse getRecordingUrlResponse(GetRecordingUrlRequest getRecordingUrlRequest) throws BaseException;
 
 }

@@ -1,6 +1,5 @@
 package communication.ws.socialvid.bean.response;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
 import java.io.Serializable;

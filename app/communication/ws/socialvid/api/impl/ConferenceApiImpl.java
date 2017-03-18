@@ -5,7 +5,9 @@ import application.exceptions.ErrorConstants;
 import application.utilities.Constants;
 import com.fasterxml.jackson.databind.JsonNode;
 import communication.ws.socialvid.bean.request.GetConferenceRequest;
+import communication.ws.socialvid.bean.request.GetRecordingUrlRequest;
 import communication.ws.socialvid.bean.response.GetConferenceResponse;
+import communication.ws.socialvid.bean.response.GetRecordingUrlResponse;
 import play.libs.F;
 import play.libs.Json;
 import play.libs.WS;
@@ -65,12 +67,28 @@ public class ConferenceApiImpl extends BaseController implements ConferenceApi {
 
     @Override
     public GetConferenceResponse getConference(GetConferenceRequest getConferenceRequest) throws BaseException {
-        GetConferenceResponse response;
+        GetConferenceResponse response = null;
         try {
             JsonNode userRequest = Json.toJson(getConferenceRequest);
             F.Promise<WS.Response> res = RestClient.sendRequest(ConfererenceApiEndpoint.GET_CONFERENCE, userRequest, null);
             JsonNode jsonResponse = res.get(Constants.REST_TIMEOUT).asJson();
             response = convertJsonNodeToObject(jsonResponse, GetConferenceResponse.class);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+            ErrorConstants error = ErrorConstants.INTEGRATION_FETCH_RESPONSE_EXCEPTION;
+            throw new BaseException(error.getErrorCode(), error.getErrorMessage(), ex.getCause());
+        }
+        return response;
+    }
+
+    @Override
+    public GetRecordingUrlResponse getRecordingUrlResponse(GetRecordingUrlRequest getRecordingUrlRequest) throws BaseException {
+        GetRecordingUrlResponse response = null;
+        try {
+            JsonNode userRequest = Json.toJson(getRecordingUrlRequest);
+            F.Promise<WS.Response> res = RestClient.sendRequest(ConfererenceApiEndpoint.GET_RECORDED_URLS, userRequest, null);
+            JsonNode jsonResponse = res.get(Constants.REST_TIMEOUT).asJson();
+            response = convertJsonNodeToObject(jsonResponse, GetRecordingUrlResponse.class);
         } catch (Exception ex) {
             ex.printStackTrace();
             ErrorConstants error = ErrorConstants.INTEGRATION_FETCH_RESPONSE_EXCEPTION;

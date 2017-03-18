@@ -26,6 +26,8 @@ POST           /meetings/instant                              @rest.controllers.
 
 GET            /meetings/find/:conferenceId                   @rest.controllers.MeetingController.findMeeting(conferenceId :String)
 
+GET            /meetings/recorded/url/:conferenceName         @rest.controllers.ConferenceController.getRecordedUrls(conferenceName :String)
+
 PUT            /meetings/saveurl                              @rest.controllers.MeetingController.storeRecordedUrl
 
 OPTIONS        /user/updateprofile                            @rest.controllers.CORSAllowController.enablecors

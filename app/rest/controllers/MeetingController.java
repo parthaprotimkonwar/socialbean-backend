@@ -87,7 +87,7 @@ public class MeetingController extends BaseController {
             UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
 
             //Create conference
-            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "20", CreateConferenceRequest.MODE.PRESENTER);
+            CreateConferenceRequest createConferenceRequest = new CreateConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(), meetingBean.getTitle(), "10", CreateConferenceRequest.MODE.PRESENTER);
             CreateConferenceResponse createConferenceResponse = servicesFactory.conferenceApi.createConference(createConferenceRequest);
 
             //the presenter
@@ -233,6 +233,7 @@ public class MeetingController extends BaseController {
             UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
 
             GetConferenceRequest conferenceRequest = new GetConferenceRequest("arunsimon@gmail.com", loginResponse.getSession(),conferenceId);
+            //GetConferenceRequest conferenceRequest = new GetConferenceRequest("arunsimon@gmail.com", "9f869c97c2833382",conferenceId);
             GetConferenceResponse conferenceResponse = servicesFactory.conferenceApi.getConference(conferenceRequest);
 
             responseBean = new ResponseBean(STATUS.SUCCESS, null, conferenceResponse, null);
@@ -247,36 +248,6 @@ public class MeetingController extends BaseController {
         return convertObjectToJsonResponse(responseBean);
 
     }
-    //find a class
-    /*public Result findMeeting(String userType, String tokenId) {
-        ResponseBean responseBean = null;
-        try {
-            USER_TYPE type = USER_TYPE.findUserType(userType);
-            Meeting meeting = null;
-
-            switch (type) {
-                case ATTENDEE:
-                    meeting = servicesFactory.meetingService.findMeetingOfAttendee(tokenId);
-                    break;
-                case PRESENTER:
-                    meeting = servicesFactory.meetingService.findMeetingOfPersentor(tokenId);
-                    break;
-            }
-            if (meeting == null) {
-                ErrorConstants error = ErrorConstants.NO_SUCH_RECORD;
-                throw new BaseException(error.getErrorCode(), error.getErrorMessage());
-            }
-            responseBean = new ResponseBean(STATUS.SUCCESS, null, meeting.toMeetingBean(), null);
-        } catch (BaseException ex) {
-            System.out.println(ex.getCause());
-            ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode(), ex.getErrorMessage());
-            return errorObjectToJsonResponse(errorResponse);
-        } catch (Exception e) {
-            ErrorResponse errorResponse = unknownErrorResponse();
-            return errorObjectToJsonResponse(errorResponse);
-        }
-        return convertObjectToJsonResponse(responseBean);
-    }*/
 
     //store the recorded url
     public Result storeRecordedUrl() {
