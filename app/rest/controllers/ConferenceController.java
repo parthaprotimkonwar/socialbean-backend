@@ -27,17 +27,19 @@ public class ConferenceController extends BaseController{
     ServicesFactory servicesFactory;
 
 
-    public Result getRecordedUrls(String conferenceName) {
+    public Result getRecordedUrls(String conferenceId) {
 
         ResponseBean responseBean = null;
         try {
             //Login to the socialvid server
+
+            //conferenceName = "create inst";
             //@TODO Remove the hard coding of email id and password
             UserLoginRequest userLoginRequest = new UserLoginRequest("arunsimon@gmail.com", "Arun123");
             UserLoginResponse loginResponse = servicesFactory.conferenceApi.userLogin(userLoginRequest);
 
             //Get the recording url
-            GetRecordingUrlRequest recordingUrlRequest = new GetRecordingUrlRequest(loginResponse.getSession(), "arunsimon@gmail.com", conferenceName);
+            GetRecordingUrlRequest recordingUrlRequest = new GetRecordingUrlRequest(loginResponse.getSession(), "arunsimon@gmail.com", conferenceId);
             GetRecordingUrlResponse recordingUrlResponse = servicesFactory.conferenceApi.getRecordingUrlResponse(recordingUrlRequest);
 
             responseBean = new ResponseBean(STATUS.SUCCESS, null, recordingUrlResponse, null);

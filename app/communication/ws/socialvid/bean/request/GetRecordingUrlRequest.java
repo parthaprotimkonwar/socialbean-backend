@@ -13,13 +13,14 @@ public class GetRecordingUrlRequest implements Serializable {
     private String session; //the session
     private String email;   //the email
     private String confName;//the conference name
+    private String confId;//the conference name
 
     public GetRecordingUrlRequest(){}
 
-    public GetRecordingUrlRequest(String session, String email, String confName){
+    public GetRecordingUrlRequest(String session, String email, String confId){
         this.session = session;
         this.email = email;
-        this.confName = confName;
+        this.confId = confId;
     }
 
     public String getSession() {
@@ -44,5 +45,13 @@ public class GetRecordingUrlRequest implements Serializable {
 
     public void setConfName(String confName) {
         this.confName = confName;
+    }
+
+    public String getConfId() {
+        return confId;
+    }
+
+    public void setConfId(String confId) {
+        this.confId = confId;
     }
 }
